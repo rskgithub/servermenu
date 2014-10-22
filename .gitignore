@@ -1,0 +1,15 @@
+/vendor/
+/components/
+/node_modules/
+/public/css/
+/public/fonts/
+/public/js/vendor
+/logs/*
+!/logs/README.md
+/templates/cache/*
+!/templates/cache/README.md
+.DS_STORE
+composer.lock
+.idea/workspace.xml
+.idea/tasks.xml
+/app/config.php

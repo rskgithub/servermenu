@@ -1,0 +1,74 @@
+<?php
+return array(
+
+	/*
+	 * Add a service to your Server Menu by adding it to the
+	 * 'services' array below. Look inside the service for the needed
+	 * configuration variables.
+	 */
+
+	'services' => array(
+		array(
+			'service' => 'Sabnzbd',
+			'title' => 'SABnzbd+',
+			'url' => "http://server:8010/sabnzbd",
+			'api_key' => 'd51asdfergfa34fghfghf23rebh5h65ks5',
+			'public_address' => 'http://server.dynip.com/sabnzbd',
+		),
+
+		array(
+			'service' => 'Transmission',
+			'title' => 'Transmission',
+			'hostname' => 'server',
+			'port' => '8011',
+			'username' => 'transmission',
+			'password' => 'password',
+			'public_address' => 'http://server.dynip.com/transmission',
+		),
+
+		array(
+			'service' => 'Sickbeard',
+			'hostname' => 'server',
+			'port' => '8012',
+			'public_address' => 'http://server.dynip.com/sickbeard',
+		)
+
+	),
+
+
+	/*
+	 * Add RSS feeds below. No configuration neccessary, just drop
+	 * them inside the Feeds folder and add them here.
+	 */
+
+	'feeds' => array(
+        'Eztv',
+        'ImdbBluray'
+    ),
+
+
+	/*
+	 * Add search providers below. No configuration neccessary, just drop
+	 * them inside the SearchProviders folder and add them here.
+	 */
+
+	'searchproviders' => array(
+        'Thepiratebay',
+        'NzbIndex',
+        'NzbClub'
+    ),
+
+	/*
+	 * Global Server Menu configuration.
+	 */
+
+	'app' => array(
+		'password' => 'd51asdfergfa34fghfghf23rebh5h65ks5',
+		'private_ranges' => array('10.0.0.0/16'),
+		'navigation_links' => array(
+			'ThePirateBay' => 'http://thepiratebay.org',
+			'EZTV' => 'http://eztv.it',
+			'NYT' => 'http://nytimes.com',
+		)
+	)
+);

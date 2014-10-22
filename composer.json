@@ -1,0 +1,35 @@
+{
+    "name": "jswhetstone/slim-skeleton-bootstrap",
+    "description": "A Slim Framework skeleton application with Bootstrap3; based on Slim-Skeleton by Josh Lockhart.",
+    "keywords": ["microframework","rest","router","slim","bootstrap","boostrap3","less"],
+    "homepage": "http://github.com/jswhetstone/Slim-Skeleton-Bootstrap",
+    "license": "MIT",
+    "authors": [
+		{
+            "name": "Jacob Whetstone",
+            "email": "hello@jswhetstone.com",
+            "homepage": "http://jswhetstone.com"
+        },
+        {
+            "name": "Josh Lockhart",
+            "email": "info@joshlockhart.com",
+            "homepage": "http://www.joshlockhart.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "monolog/monolog": "1.*",
+        "slim/slim": "2.*",
+        "slim/views": "0.*",
+        "twig/twig": "1.*",
+        "components/jquery": "1.*",
+	"components/bootstrap" : "3.*",
+        "jswhetstone/twig-extension" : "dev-master",
+	"entomb/slim-json-api": "dev-master"
+    },
+	"autoload": {
+		"psr-4": {
+			"ServerMenu\\": "app/"
+		}
+	}
+}

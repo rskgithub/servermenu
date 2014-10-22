@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+{% block title %}Container Example{% endblock %}
+{% block container %}
+    <section>
+        <h1>Container Example</h1>
+        <div class="well">
+            <p>
+                This page implements the <code>{{ '{% block container %}' }}</code> block.<br>
+                All Sections Implemented in this block will be wrapped in a single
+                <code>&lt;div class="container"&gt;</code> element.
+            </p>
+        </div>
+    </section>
+    <section>
+        <h2>Another Section</h2>
+        <div class="well">
+            <p>Notice how both of these sections are contained within the <code>&lt;div class="container"&gt;</code>
+                element. Nothing will overflow.
+            </p>
+        </div>
+    </section>
+{% endblock %}

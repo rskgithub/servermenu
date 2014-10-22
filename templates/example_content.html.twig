@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block title %}Content Example{% endblock %}
+{% block content %}
+    <section>
+        <div class="container">
+            <h1>Content Example</h1>
+            <div class="well">
+                <p>
+                    This page implements the <code>{{ '{% block content %}' }}</code> block.<br>
+                    Each Area of the page which you would like to keep within the container width must be wrapped in
+                    it's own <code>&lt;div class="container"&gt;</code> element.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2>Another Section</h2>
+        <div class="well">
+            <p>
+                Notice how this section will stretch out to the edge of the screen, it is not constrained to the
+                container width because it does not have a <code>&lt;div class="container"&gt;</code> wrapper element.
+            </p>
+        </div>
+    </section>
+{% endblock %}
