@@ -81,7 +81,7 @@ class Utility {
 
 		$diff = time() - $timestamp;
 		if($diff == 0)
-			return 'now';
+			return '0 secs';
 		elseif($diff > 0)
 		{
 			$day_diff = floor($diff / 86400);
@@ -105,16 +105,17 @@ class Utility {
 			$day_diff = floor($diff / 86400);
 			if($day_diff == 0)
 			{
-				if($diff < 120) return 'a minute';
-				if($diff < 3600) return floor($diff / 60) . ' minutes';
+                                if($diff < 60) return '30 secs';
+				if($diff < 120) return '1 mins';
+				if($diff < 3600) return floor($diff / 60) . ' mins';
 				if($diff < 7200) return 'an hour';
 				if($diff < 86400) return floor($diff / 3600) . ' hours';
 			}
-			if($day_diff == 1) return 'Tomorrow';
+			if($day_diff == 1) return '1 day';
 			if($day_diff < 4) return date('l', $timestamp);
-			if($day_diff < 7 + (7 - date('w'))) return 'next week';
-			if(ceil($day_diff / 7) < 4) return 'in ' . ceil($day_diff / 7) . ' weeks';
-			if(date('n', $timestamp) == date('n') + 1) return 'next month';
+			if($day_diff < 7 + (7 - date('w'))) return '1 week';
+			if(ceil($day_diff / 7) < 4) return ceil($day_diff / 7) . ' weeks';
+			if(date('n', $timestamp) == date('n') + 1) return '1 month';
 			return date('F Y', $timestamp);
 		}
 	}
