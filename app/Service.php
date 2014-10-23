@@ -25,7 +25,8 @@ abstract class Service {
 	public abstract function getEta();
 	public abstract function getSpeed();
 	public abstract function getStatusCode();
-	public abstract function getLink();
+	public abstract function getWanLink();
+        public abstract function getLanLink();
 
 	public function __construct($config) {
 		foreach ($this->requiredConfig as $configVar) {
@@ -64,7 +65,7 @@ abstract class Service {
 			'speed' => Utility::bytes2human($this->getSpeed()),
 			'status' => $this->getStatusString(),
 			'statuscode' => $this->status,
-			'link' => $this->getLink(),
+			'link' => (($this->getRequestType() == self::REQUEST_WAN) ? $this->getWanLink() : $this->getLanLink()),
 		);
 	}
 
