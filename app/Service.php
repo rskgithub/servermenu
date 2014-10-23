@@ -46,6 +46,7 @@ abstract class Service {
 			case self::STATUS_DOWNLOADING:
 				return 'Downloading';
 		}
+                return 'Offline';
 	}
 
 	protected final function getRequestType() {
@@ -64,7 +65,7 @@ abstract class Service {
 			'eta' => Utility::time2relative($this->getEta()),
 			'speed' => Utility::bytes2human($this->getSpeed()),
 			'status' => $this->getStatusString(),
-			'statuscode' => $this->status,
+			'statuscode' => $this->getStatusCode(),
 			'link' => (($this->getRequestType() == self::REQUEST_WAN) ? $this->getWanLink() : $this->getLanLink()),
 		);
 	}
