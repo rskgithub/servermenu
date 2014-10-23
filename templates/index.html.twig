@@ -1,80 +1,12 @@
 {% extends "base.html.twig" %}
 {% block title %}Slim Framework with Bootstrap{% endblock %}
 {% block container %}
-    <section>
-        <h1>Welcome to Slim With Bootstrap!</h1>
-
-        <p>
-            I assume that this is not your first Slim application; if that assumption is false, you should probably
-            start here: <a href="http://docs.slimframework.com/#Hello-World" target="_blank">"Hello World" Tutorial</a>,
-            then come on back to this project. </p>
-
-        <p>
-            If you don't actually intend to use Bootstrap 3 for your project, then
-            <a href="https://github.com/codeguy/Slim-Skeleton">Slim Skeleton</a> is probably a better fit for your
-            needs.</p>
-    </section>
-    <section>
-        <h2>The Goods</h2>
-
-        <p>A base template with a sticky header and footer is provided for all pages to extend.</p>
-
-        <p>It can be found in: <code>templates/base.html.twig</code></p>
-
-        <p>Simply begin all of your page templates with this line:
-            <code>{{ '{%' }} extends "base.html.twig" {{ '%}' }}</code>
-        </p>
-
-        <h3>Provided Blocks</h3>
-        <h4><code>{{ '{% block container %}' }}</code></h4>
-        <blockquote>
-            Implement this block to render all of your page content within a single
-            <code>&lt;div class="container"&gt;</code> element.<br>
-            This is good if none of your content needs to 'bleed' outside of the container width.
-        </blockquote>
-        <h4><code>{{ '{% block content %}' }}</code></h4>
-        <blockquote>
-            Implement this block if you need some of your elements to 'bleed' outside the container.<br>
-            For example, if you want to use a carousel widget with navigation arrows that render outside the container.<br>
-            You will need to implement your own <code>&lt;div class="container"&gt;</code> elements.<br>
-        </blockquote>
-        <h4><code>{{ '{% block title %}' }}</code></h4>
-        <blockquote>
-            This sets the page title. Plain text-only, no html elements needed.
-        </blockquote>
-        <h4><code>{{ '{% block description %}' }}</code></h4>
-        <blockquote>
-            This sets the page description. Plain text-only, no html elements needed.
-        </blockquote>
-        <h4><code>{{ '{% block meta %}' }}</code></h4>
-        <blockquote>
-            This sets additional meta-data within the header. Wrapper elemets are required as we don't know what you're
-            going to set.<br>
-            Example: <code>&lt;meta property="og:image" content="http://ia.media-imdb.com/images/rock.jpg" /&gt;</code>
-        </blockquote>
-        <h4><code>{{ '{% block scripts %}' }}</code></h4>
-        <blockquote>
-            Put any page-specific javascript blocks or includes in this block;<br>
-            it will be rendered at the end of the page, after jQuery, Bootstrap, and app.js
-        </blockquote>
-        <h3>Extra Twig Functions</h3>
-        <p>The following Twig functions are provided by
-            <a href="https://github.com/jswhetstone/twig-extension" target="_blank">
-                <code>jswhetstone/twig-extension</code>
-            </a>
-        </p>
-        <h4><code>{{ '{{ getPageClass() }}' }}</code></h4>
-        <blockquote>
-            Will return a class-ready string representation of the current URI.<br>
-            Each directory in the hierarchy is represented by a separate class.<br>
-            The root directory will return 'home' (without quotes).
-        </blockquote>
-        <h4><code>{{ '{{ getActiveClass(\'/some/page\') }}' }}</code></h4>
-        <blockquote>
-            Will return 'active' (without quotes) if the current URI contains the string specified.<br>
-            Good for rendering the active state on Bootstrap nav elements.<br>
-            Pass an empty string ('') to check for root.
-        </blockquote>
-
+    <section id="services">
+        {% for serviceId, serviceConfig in config.services %}
+            <div class="col-xs-12 col-sm-3 data-load data-reload text-center"
+                 data-id="{{ serviceId }}" data-noloadanim="true">
+                Service: {{ serviceConfig.title }}
+            </div>
+       {% endfor %}
     </section>
 {% endblock %}
