@@ -17,7 +17,10 @@ abstract class Service {
 		$status, // Integer containing current status code
 		$remaining, // Number of items left in queue
 		$eta, // Time left until completion
-		$speed; // Current transfer speed
+		$speed, // Current transfer speed
+
+    		$config, // Configuration store
+    		$serviceId; // Service ID;
 
 	protected abstract function fetchData();
 
@@ -28,12 +31,13 @@ abstract class Service {
 	public abstract function getWanLink();
         public abstract function getLanLink();
 
-	public function __construct($config) {
+	public function __construct($config, $serviceId) {
 		foreach ($this->requiredConfig as $configVar) {
 			if (!isset($config[$configVar]))
 				throw new \Exception("Config variable missing: $configVar");
 		}
 		$this->config = $config;
+	    	$this->serviceId = $serviceId;
 		$this->fetchData();
 	}
 
@@ -61,6 +65,7 @@ abstract class Service {
 
 	public final function getTemplateData() {
 		return array(
+		    	'config' => $this->config,
 			'remaining' => $this->getRemaining(),
 			'eta' => Utility::time2relative($this->getEta()),
 			'speed' => Utility::bytes2human($this->getSpeed()),
