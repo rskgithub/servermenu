@@ -55,15 +55,17 @@ $app->get('/api/services', 'apiRequest', function () use ($app, $config) {
  */
 
 // Get Specific Service
-$app->get('/ajax/service/:name', function ($name) use($app, $config) {
-	if (!isset($config['services'][$name]))
-		$app->notFound();
+$app->get('/ajax/service/:serviceId', function ($serviceId) use ($app, $config) {
+        if (!isset($config['services'][$serviceId])) {
+                $app->notFound();
+        }
 
-	$serviceConfig = $config['services'][$name];
-	$serviceClass = "\\ServerMenu\\Services\\{$serviceConfig['service']}";
-	$service = new $serviceClass($serviceConfig);
-
-	$app->render('service.html.twig', $service->getTemplateData());
+        $serviceConfig = $config['services'][$serviceId];
+        $serviceClass = "\\ServerMenu\\Services\\{$serviceConfig['service']}";
+        /* @var $service \ServerMenu\Service */
+        $service = new $serviceClass($serviceConfig, $serviceId);
+        // Render Service HTML
+        $app->render('service.html.twig', $service->getTemplateData());
 });
 
 // Define 404 template

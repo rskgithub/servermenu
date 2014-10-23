@@ -1,8 +1,20 @@
-<h1>service</h1>
-<pre>
-    Status: {{ status }}
-    Remaining: {{ remaining }}
-    Eta: {{ eta }}
-    Speed: {{ speed }}
-    Link: {{ link }}
-</pre>
+<div class="col-xs-12 col-sm-3 data-load data-reload text-center"
+     data-id="sabnzbd" data-noloadanim="true">
+    <h5>
+        {{ config.title }}
+        {% if statuscode == constant('\\ServerMenu\\Service::STATUS_OFFLINE') %}
+        <p class="text-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> The server is down.</p>
+        {% else %}
+        <span class="glyphicon glyphicon-ok ttip" data-toggle="tooltip" title="{{ status }}"></span>
+        {% endif %}
+        {% if (statuscode == constant('\\ServerMenu\\Service::STATUS_DOWNLOADING') or statuscode == constant('\\ServerMenu\\Service::STATUS_PAUSED')) %}
+            ({{ remaining }})
+        {% endif %}
+    </h5>
+    {% if (statuscode == constant('\\ServerMenu\\Service::STATUS_DOWNLOADING') or statuscode == constant('\\ServerMenu\\Service::STATUS_PAUSED')) %}
+    <p style="font-size:12px">{{ eta }} left at {{ speed }}</p>
+    {% endif %}
+    {% if statuscode != 0 %}
+    <p><a class="btn btn-sm btn-default openModal" href="{{ link }}">Go to sabnzbd</a></p>
+    {% endif %}
+</div>
