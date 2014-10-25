@@ -77,7 +77,7 @@ $app->get('/ajax/service/:serviceId', function ($serviceId) use ($app, $config) 
         }
 
         $serviceConfig = $config['services'][$serviceId];
-        $serviceClass = "\\ServerMenu\\Services\\{$serviceConfig['service']}";
+        $serviceClass = "\\ServerMenu\\Services\\{$serviceConfig['service']}\\{$serviceConfig['service']}";
         /* @var $service \ServerMenu\Service */
         $service = new $serviceClass($serviceConfig, $serviceId);
         // Render Service HTML

@@ -6,7 +6,7 @@
  * Time: 20:49
  */
 
-namespace ServerMenu\Services;
+namespace ServerMenu\Services\Sabnzbd;
 
 use ServerMenu\Service;
 
