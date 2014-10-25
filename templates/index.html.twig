@@ -3,9 +3,9 @@
 {% block container %}
         <div class="row row-centered">
         {% for serviceId, serviceConfig in config.services %}
-            <div class="col-xs-12 col-sm-3 data-load data-reload text-center"
-                 data-id="{{ serviceId }}" data-noloadanim="true">
-                Service: {{ serviceConfig.title }}
+            <div class="col-xs-12 col-sm-3 data-load data-reload text-center col-centered"
+                 data-id="{{ serviceId }}" data-loadtype="service" data-noloadanim="true">
+                {% include 'service.html.twig' ignore missing with {'serviceId': serviceId, 'config': serviceConfig, 'statuscode': 10} %}
             </div>
         {% endfor %}
         </div>

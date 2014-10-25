@@ -1,20 +1,21 @@
-<div class="col-xs-12 col-sm-3 data-load data-reload text-center"
-     data-id="sabnzbd" data-noloadanim="true">
+
     <h5>
         {{ config.title }}
         {% if statuscode == constant('\\ServerMenu\\Service::STATUS_OFFLINE') %}
-        <p class="text-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> The server is down.</p>
+            <p class="text-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> The server is down.</p>
+        {% elseif statuscode == constant('\\ServerMenu\\Service::STATUS_UNKNOWN') %}
+            <span class="glyphicon glyphicon-question-sign ttip" data-toggle="tooltip" title="Loading"></span>
         {% else %}
-        <span class="glyphicon glyphicon-ok ttip" data-toggle="tooltip" title="{{ status }}"></span>
+            <span class="glyphicon glyphicon-ok ttip" data-toggle="tooltip" title="{{ status }}"></span>
         {% endif %}
         {% if (statuscode == constant('\\ServerMenu\\Service::STATUS_DOWNLOADING') or statuscode == constant('\\ServerMenu\\Service::STATUS_PAUSED')) %}
             ({{ remaining }})
         {% endif %}
     </h5>
     {% if (statuscode == constant('\\ServerMenu\\Service::STATUS_DOWNLOADING') or statuscode == constant('\\ServerMenu\\Service::STATUS_PAUSED')) %}
-    <p style="font-size:12px">{{ eta }} left at {{ speed }}</p>
+        <p style="font-size:12px">{{ eta }} left at {{ speed }}</p>
     {% endif %}
-    {% if statuscode != 0 %}
-    <p><a class="btn btn-sm btn-default openModal" href="{{ link }}">Go to sabnzbd</a></p>
+
+    {% if (statuscode != 0 and statuscode != 10) %}
+        <p><a class="btn btn-sm btn-default openModal" href="{{ link }}">Go to sabnzbd</a></p>
     {% endif %}
-</div>

@@ -10,6 +10,7 @@ abstract class Service
         const STATUS_IDLE = 1;
         const STATUS_DOWNLOADING = 2;
         const STATUS_PAUSED = 3;
+        const STATUS_UNKNOWN = 10;
         const REQUEST_LAN = 1;
         const REQUEST_WAN = 2;
 
