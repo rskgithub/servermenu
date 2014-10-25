@@ -21,10 +21,6 @@ $app->view->parserExtensions = array(
         new \JSW\Twig\TwigExtension()
 );
 
-// Define 404 template
-$app->notFound(function () use ($app) {
-        $app->render('404.html.twig');
-});
 
 // Add configuration to application
 $config = include('../app/config.php');
@@ -60,6 +56,7 @@ function apiRequest()
 $app->get('/api/services', 'apiRequest', function () use ($app, $config) {
         if (empty($config['services'])) {
                 $app->notFound();
+                return;
         }
 
         $app->render(200, array(
@@ -76,6 +73,7 @@ $app->get('/api/services', 'apiRequest', function () use ($app, $config) {
 $app->get('/ajax/service/:serviceId', function ($serviceId) use ($app, $config) {
         if (!isset($config['services'][$serviceId])) {
                 $app->notFound();
+                return;
         }
 
         $serviceConfig = $config['services'][$serviceId];
@@ -83,10 +81,14 @@ $app->get('/ajax/service/:serviceId', function ($serviceId) use ($app, $config) 
         /* @var $service \ServerMenu\Service */
         $service = new $serviceClass($serviceConfig, $serviceId);
         // Render Service HTML
-        $app->render('service.html.twig', $service->getTemplateData());
+        $app->render('service.html.twig', $service->getTemplateData(), 200);
 });
 
 
+// Define 404 template
+$app->notFound(function () use ($app) {
+        $app->render('404.html.twig');
+});
 
 // Run app
 $app->run();
