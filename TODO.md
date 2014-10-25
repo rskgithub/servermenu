@@ -20,7 +20,10 @@
 - loading animation (css class load)
 - receive file/torrent
     - add different capabilities to Service?
-- add services Transmission and sickbeard - maybe webmin
+- add services 
+    - Transmission 
+    - Sickbeard
+    – Webmin
 - add tooltip
 - add iframe/link
 - docblocks
