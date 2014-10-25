@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 {% block title %}Slim Framework with Bootstrap{% endblock %}
 {% block container %}
-    <section id="services">
+        <div class="row row-centered">
         {% for serviceId, serviceConfig in config.services %}
             <div class="col-xs-12 col-sm-3 data-load data-reload text-center"
                  data-id="{{ serviceId }}" data-noloadanim="true">
                 Service: {{ serviceConfig.title }}
             </div>
-       {% endfor %}
-    </section>
+        {% endfor %}
+        </div>
 {% endblock %}
