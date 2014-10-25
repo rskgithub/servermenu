@@ -59,7 +59,7 @@ class Transmission extends Service {
                                 }
 
                                 if ($this->status != Service::STATUS_DOWNLOADING) {
-                                        $this->status = Service::STATUS_PAUSED;
+                                        $this->status = Service::STATUS_IDLE;
                                 }
                         }
                 } else {
