@@ -8,14 +8,16 @@
         {% else %}
             <span class="glyphicon glyphicon-ok ttip" data-toggle="tooltip" title="{{ status }}"></span>
         {% endif %}
+
         {% if (statuscode == constant('\\ServerMenu\\Service::STATUS_DOWNLOADING') or statuscode == constant('\\ServerMenu\\Service::STATUS_PAUSED')) %}
             ({{ remaining }})
         {% endif %}
     </h5>
+
     {% if (statuscode == constant('\\ServerMenu\\Service::STATUS_DOWNLOADING') or statuscode == constant('\\ServerMenu\\Service::STATUS_PAUSED')) %}
         <p style="font-size:12px">{{ eta }} left at {{ speed }}</p>
     {% endif %}
 
     {% if (statuscode != 0 and statuscode != 10) %}
-        <p><a class="btn btn-sm btn-default openModal" href="{{ link }}">Go to sabnzbd</a></p>
+        <p><a class="btn btn-sm btn-default openModal" href="{{ link }}">Open</a></p>
     {% endif %}

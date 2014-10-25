@@ -49,14 +49,18 @@ abstract class Service
         private function getStatusString()
         {
                 switch ($this->getStatusCode()) {
-                        case self::STATUS_OFFLINE:
-                                return 'Offline';
                         case self::STATUS_IDLE:
                                 return 'Idle';
                         case self::STATUS_DOWNLOADING:
                                 return 'Downloading';
+                        case self::STATUS_PAUSED:
+                                return 'Paused';
+                        case self::STATUS_UNKNOWN:
+                                return 'Unknown';
+                        case self::STATUS_OFFLINE:
+                        default:
+                                return 'Offline';
                 }
-                return 'Offline';
         }
 
         protected final function getRequestType()
