@@ -17,17 +17,25 @@ jQuery( document ).ready(function( $ ) {
     $(".data-load").each(function(){
 	$(this).loading();
 	$(this).load("/ajax/"+$(this).data('loadtype')+"/"+$(this).data('id'), function(e,s,j){
-	    if (s == 'error')
-	    	$(this).removeClass('data-reload');
+	    if (s == 'error') {
+		// Don't keep reloading items that don't work.
+		$(this).removeClass('data-reload');
+	    } else {
+		$(this).finished();
+		$(".ttip").tooltip();
+	    }
 	});
-	$(this).finished();
     });
 
     setInterval(function() {
 	$(".data-reload").each(function() {
 	    $(this).loading();
-	    $(this).load("/ajax/"+$(this).data('loadtype')+"/"+$(this).data('id'));
-	    $(this).finished();
+	    $(this).load("/ajax/"+$(this).data('loadtype')+"/"+$(this).data('id'), function(e,s,j){
+		if (s != 'error') {
+		    $(this).finished();
+		    $(".ttip").tooltip();
+		}
+	    });
 	})
     }, 5000);
 
