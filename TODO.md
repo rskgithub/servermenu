@@ -7,6 +7,8 @@
 - navbar adheres to sites defined in config
 - dark theme
 - password protection
+- add tooltip js
+
 
 ### Maybe
 
@@ -23,7 +25,6 @@
     - Transmission 
     - Sickbeard
     – Webmin
-- add tooltip
 - add iframe/link
 - docblocks
 - documentation
