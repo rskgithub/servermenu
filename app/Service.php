@@ -16,10 +16,6 @@ abstract class Service
 
         protected
                 $requiredConfig, // Array containing the required values in config
-                $status, // Integer containing current status code
-                $remaining, // Number of items left in queue
-                $eta, // Time left until completion
-                $speed, // Current transfer speed
 
                 $config, // Configuration store
                 $serviceId; // Service ID;
@@ -52,7 +48,7 @@ abstract class Service
 
         private function getStatusString()
         {
-                switch ($this->status) {
+                switch ($this->getStatusCode()) {
                         case self::STATUS_OFFLINE:
                                 return 'Offline';
                         case self::STATUS_IDLE:

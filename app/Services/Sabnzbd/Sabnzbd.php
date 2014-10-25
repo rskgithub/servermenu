@@ -12,6 +12,10 @@ use ServerMenu\Service;
 
 class Sabnzbd extends \ServerMenu\Service
 {
+        private $status, // Integer containing current status code
+                $remaining, // Number of items left in queue
+                $eta, // Time left until completion
+                $speed; // Current transfer speed
 
         protected $requiredConfig = array('service', 'title', 'url', 'api_key', 'public_address');
 
