@@ -9,7 +9,7 @@
 namespace ServerMenu;
 
 
-abstract class Feed extends Plugin {
+abstract class Feed {
 
         const TYPE_MAGNET = 1;
         const TYPE_TORRENT = 2;
@@ -17,26 +17,6 @@ abstract class Feed extends Plugin {
 
         const DEFAULT_AMOUNT = 30;
 
-        /**
-         * @return array
-         */
-        public abstract function supportedClients();
+        abstract function getTemplateData();
 
-        /**
-         * @param int $amount
-         *
-         * @return array
-         */
-        protected abstract function get($amount = self::DEFAULT_AMOUNT);
-
-        /**
-         * @return array
-         */
-        public function getTemplateData()
-        {
-                return array(
-                        'data' => 'val'
-                );
-        }
-
-} 
+}

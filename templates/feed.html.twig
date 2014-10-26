@@ -1,1 +1,25 @@
-test
+<table class="table table-striped table-media table-condensed">
+<tbody>
+{% for result in results %}
+<tr>
+    <td style="text-align: left">
+        <a href="http://re.zoink.it/32b0631bF8">
+            {{ result.title }}
+            <span class="text-muted">{{ result.subtitle }}</span>
+        </a>
+    </td>
+
+    <td style="text-align:right; min-width:85px;">
+        {% for action in result.actions %}
+            <a class="data-send btn btn-default btn-xs"
+               data-action="{{ action.action }}"
+               data-content="{{ action.content }}" href="#">
+                <span class="glyphicon glyphicon-{{ action.glyphicon }}"></span>
+                {{ action.title }}
+            </a>
+        {% endfor %}
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
