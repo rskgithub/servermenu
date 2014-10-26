@@ -17,8 +17,6 @@ class PluginLoader {
 
         /**
          * @param $type
-         * @param $name
-         * @param $config
          * @param $id
          *
          * @return Object
@@ -38,11 +36,12 @@ class PluginLoader {
                 if (file_exists(__DIR__.'/'.$type.'s/'.$class.'/'.$class.'.php')) {
                         $className = "\\ServerMenu\\{$type}s\\$class\\$class";
 
-                        self::$plugins[$type][$name] = new $className($config, $id);
-                        return self::$plugins[$type][$name];
+                        self::$plugins[$type][$id] = new $className($config, $id);
+                        return self::$plugins[$type][$id];
                 } else {
                         throw new \Exception('Plugin not found');
                 }
+
         }
 
 } 
