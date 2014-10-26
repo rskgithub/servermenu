@@ -76,10 +76,12 @@ $app->get('/ajax/service/:serviceId', function ($serviceId) use ($app, $config) 
                 return;
         }
 
-        $serviceConfig = $config['services'][$serviceId];
-        $serviceClass = "\\ServerMenu\\Services\\{$serviceConfig['service']}\\{$serviceConfig['service']}";
-        /* @var $service \ServerMenu\Service */
-        $service = new $serviceClass($serviceConfig, $serviceId);
+        $service = \ServerMenu\PluginLoader::fetch('Service',
+                $config['services'][$serviceId]['service'],
+                $config['services'][$serviceId],
+                $serviceId
+        );
+
         // Render Service HTML
         $app->render('service.html.twig', $service->getTemplateData(), 200);
 });
