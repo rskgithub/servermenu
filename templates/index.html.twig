@@ -1,10 +1,10 @@
 {% extends "base.html.twig" %}
-{% block title %}Slim Framework with Bootstrap{% endblock %}
+{% block title %}Menu 2.0{% endblock %}
 {% block container %}
-        <div class="row row-centered">
+        <div class="row row-centered" id="services">
         {% for serviceId, serviceConfig in config.services %}
             <div class="col-xs-12 col-sm-3 data-load data-reload text-center col-centered"
-                 data-id="{{ serviceId }}" data-loadtype="service" data-noloadanim="true">
+                 data-loadid="{{ serviceId }}" data-loadtype="service" data-noloadanim="true">
                 {% include 'service.html.twig' ignore missing with {'serviceId': serviceId, 'config': serviceConfig, 'statuscode': 10} %}
             </div>
         {% endfor %}
