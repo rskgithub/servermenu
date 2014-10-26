@@ -27,11 +27,20 @@ return array(
 		),
 
 		array(
-			'service' => 'Sickbeard',
+			'service' => 'HTTP',
+			'title => 'Sickbeard',
 			'hostname' => 'server',
 			'port' => '8012',
 			'public_address' => 'http://server.dynip.com/sickbeard',
-		)
+		),
+
+        array(
+            'service' => 'HTTP',
+            'title' => 'Webmin',
+            'hostname' => 'server',
+            'port' => '10000',
+            'public_address' => 'http://server.dynip.com:10000'
+        )
 
 	),
 
