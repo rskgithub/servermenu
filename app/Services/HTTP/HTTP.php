@@ -54,11 +54,11 @@ class HTTP extends Service {
 
         public function getWanLink()
         {
-                // TODO: Implement getWanLink() method.
+                return $this->config['public_link'];
         }
 
         public function getLanLink()
         {
-                // TODO: Implement getLanLink() method.
+                return "http://{$this->config['hostname']}:{$this->config['port']}";
         }
 }
