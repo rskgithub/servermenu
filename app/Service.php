@@ -13,6 +13,9 @@ abstract class Service extends Plugin
         const STATUS_UNKNOWN = 10;
         const REQUEST_LAN = 1;
         const REQUEST_WAN = 2;
+        const RECEIVER_TORRENT = 1;
+        const RECEIVER_MAGNET = 2;
+        const RECEIVER_NZB = 3;
 
         protected
                 $requiredConfig, // Array containing the required values in config

@@ -52,17 +52,24 @@ function apiRequest()
         $app->add(new \JsonApiMiddleware());
 }
 
-// Get list of services
-$app->get('/api/services', 'apiRequest', function () use ($app, $config) {
-        if (empty($config['services'])) {
+// Get list of plugins
+$app->get('/api/:type', 'apiRequest', function ($type) use ($app, $config) {
+        if (empty($config[$type])) {
                 $app->notFound();
                 return;
         }
 
         $app->render(200, array(
-                'services' => array_keys($config['services']),
+                $type => array_keys($config[$type]),
         ));
 });
+
+$app->get('/api/receivers/:pluginType/:receiverType', 'apiRequest',
+        function ($pluginType, $receiverType) use ($app, $config) {
+                $plugins = \ServerMenu\PluginLoader::getReceivers($pluginType, $receiverType);
+                $app->render(200, $plugins);
+        }
+);
 
 
 /*
@@ -71,6 +78,8 @@ $app->get('/api/services', 'apiRequest', function () use ($app, $config) {
 
 // Get Specific Service
 $app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) use ($app, $config) {
+        //sleep(rand(1, 2));
+
         if (!isset($config[$serviceType.'s'][$serviceId])) {
                 $app->notFound();
                 return;

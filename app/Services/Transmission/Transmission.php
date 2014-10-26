@@ -15,6 +15,8 @@ class Transmission extends Service {
 
         protected $requiredConfig = array('plugin', 'title', 'hostname', 'port', 'username', 'password', 'public_address');
 
+        public $receivers = array(Service::RECEIVER_MAGNET, Service::RECEIVER_TORRENT);
+
         private $status, // Integer containing current status code
                 $remaining, // Number of items left in queue
                 $eta, // Time left until completion

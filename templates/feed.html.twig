@@ -11,12 +11,19 @@
 
     <td style="text-align:right; min-width:85px;">
         {% for action in result.actions %}
-            <a class="data-send btn btn-default btn-xs"
-               data-action="{{ action.action }}"
-               data-content="{{ action.content }}" href="#">
-                <span class="glyphicon glyphicon-{{ action.glyphicon }}"></span>
-                {{ action.title }}
-            </a>
+            <div class="dropdown">
+                <button class="btn btn-default btn-xs dropdown-toggle" data-plugintype="{{ action.pluginType }}"
+                        data-receivertype="{{ action.receiverType }}"
+                        data-content="{{ action.content }}" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-{{ action.glyphicon }}"></span>
+                    {{ action.title }}
+                </button>
+                <ul class="dropdown-menu">
+                    <li role="presentation">
+                        <a class="dropdown-item-loading disabled" role="menuitem" tabindex="-1" href="#">&nbsp;</a>
+                    </li>
+                </ul>
+            </div>
         {% endfor %}
     </td>
 </tr>

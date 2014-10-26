@@ -39,6 +39,32 @@ jQuery( document ).ready(function( $ ) {
 	})
     }, 5000);
 
+    // Handle receiver requests
+
+    $("#feeds").on('click', 'button', function() {
+	var button = this;
+	var items = $.getJSON(
+	    "/api/receivers/"+$(this).data('plugintype')+"/"+$(this).data('receivertype'),
+		function(data) {
+		    $(data.plugins).each(function() {
+			    $(button).siblings(".dropdown-menu").html(
+				"<li role='presentation'>" +
+				"<a class='dropdown-item data-send' role='menuitem' tabindex='-1' data-pluginType='"+ $(button).data('plugintype') +"' " +
+				"data-receivertype='"+ $(button).data('receivertype') +"' " +
+				"data-pluginid='"+ this.pluginId +"' data-content='"+ $(button).data('content') +"' href='#'>"+this.plugin+"</a>" +
+				"</li>"
+			    );
+			}
+		    );
+
+		}
+	);
+    });
+
+    $("body").on('click', '.data-send', function() {
+	console.log($(this).data());
+    });
+
     // Miscellaneous UI stuff
 
     $("a[data-id=feed-0]").tab('show'); // Load first feed tab

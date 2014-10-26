@@ -19,6 +19,8 @@ class Sabnzbd extends \ServerMenu\Service
 
         protected $requiredConfig = array('plugin', 'title', 'url', 'api_key', 'public_address');
 
+        public $receivers = array(Service::RECEIVER_NZB);
+
         protected function fetchData()
         {
                 $apiUrl = "{$this->config['url']}/api?mode=qstatus&output=json&apikey={$this->config['api_key']}";
