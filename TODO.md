@@ -20,10 +20,6 @@
 - loading animation (css class load)
 - receive file/torrent
     - add different capabilities to Service?
-- add services 
-    - Transmission 
-    - Sickbeard
-    – Webmin
 - add iframe/link
 - docblocks
 - documentation
@@ -31,10 +27,17 @@
 ## SearchProviders
 
 - add nzbclub, thepiratebay
+- let certain services receieve different types:
+    - torrent (HTTP URL)
+    - magnet (URI)
+    - nzb (HTTP URL)
+    
+    - add to config which types services can receive
+        so users can decide which apps they want to use
 
 ## Feeds
 
 - add eztv
 - add imdb
-- get more ideas
+- more sites?
 
