@@ -9,4 +9,23 @@
             </div>
         {% endfor %}
         </div>
+
+        <div class="row row-centered" id="feeds">
+
+            <ul class="nav nav-tabs" role="tablist">
+            {% for feedId, feedConfig in config.feeds %}
+                <li>
+                    <a href="#feed-{{ feedId }}" data-toggle="tab" data-id="feed-{{ feedId }}">
+                        {{ feedConfig.plugin }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+            <div class="tab-content">
+            {% for feedId, feedConfig in config.feeds %}
+                <div class="tab-pane" id="feed-{{ feedId }}" data-id="feed-{{ feedId }}" data-loadtype="service" data-loadid="{{ feedId }}">
+                	Feed ID {{ feedId }}
+				</div>
+            {% endfor %} 
+        </div> 
 {% endblock %}
