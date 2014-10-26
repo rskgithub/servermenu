@@ -70,20 +70,16 @@ $app->get('/api/services', 'apiRequest', function () use ($app, $config) {
  */
 
 // Get Specific Service
-$app->get('/ajax/service/:serviceId', function ($serviceId) use ($app, $config) {
-        if (!isset($config['services'][$serviceId])) {
+$app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) use ($app, $config) {
+        if (!isset($config[$serviceType.'s'][$serviceId])) {
                 $app->notFound();
                 return;
         }
 
-        $service = \ServerMenu\PluginLoader::fetch('Service',
-                $config['services'][$serviceId]['service'],
-                $config['services'][$serviceId],
-                $serviceId
-        );
+        $service = \ServerMenu\PluginLoader::fetch($serviceType, $serviceId);
 
         // Render Service HTML
-        $app->render('service.html.twig', $service->getTemplateData(), 200);
+        $app->render($serviceType.'.html.twig', $service->getTemplateData(), 200);
 });
 
 

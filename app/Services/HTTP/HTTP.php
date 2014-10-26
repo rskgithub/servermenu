@@ -13,7 +13,7 @@ use ServerMenu\Service;
 
 class HTTP extends Service {
 
-        protected $requiredConfig = array('service', 'title', 'hostname', 'port', 'public_address');
+        protected $requiredConfig = array('plugin', 'title', 'hostname', 'port', 'public_address');
 
         private $upCode = 302,
                 $status;

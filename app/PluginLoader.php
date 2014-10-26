@@ -9,6 +9,8 @@
 namespace ServerMenu;
 
 
+use Slim\Slim;
+
 class PluginLoader {
 
         private static $plugins;
@@ -22,15 +24,20 @@ class PluginLoader {
          * @return Object
          * @throws \Exception
          */
-        public static function fetch($type, $name, $config, $id) {
+        public static function fetch($type, $id) {
                 if (!isset(self::$plugins)) {
                         self::$plugins = array();
-                } elseif (isset(self::$plugins[$type][$name])) {
-                        return self::$plugins[$type][$name];
+                } elseif (isset(self::$plugins[$type][$id])) {
+                        return self::$plugins[$type][$id];
                 }
 
-                if (file_exists(__DIR__.'/'.$type.'s/'.$name.'/'.$name.'.php')) {
-                        $className = "\\ServerMenu\\{$type}s\\$name\\$name";
+                $config = Slim::getInstance()->config('s')[$type.'s'][$id];
+                $name = $config['plugin'];
+                $class = ucfirst($name);
+
+                if (file_exists(__DIR__.'/'.$type.'s/'.$class.'/'.$class.'.php')) {
+                        $className = "\\ServerMenu\\{$type}s\\$class\\$class";
+
                         self::$plugins[$type][$name] = new $className($config, $id);
                         return self::$plugins[$type][$name];
                 } else {

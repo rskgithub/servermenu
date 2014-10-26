@@ -3,7 +3,7 @@ namespace ServerMenu;
 
 use Slim\Slim;
 
-abstract class Service
+abstract class Service extends Plugin
 {
 
         const STATUS_OFFLINE = 0;
@@ -22,18 +22,42 @@ abstract class Service
 
         protected abstract function fetchData();
 
+        /**
+         * @return int
+         */
         public abstract function getRemaining();
 
+        /**
+         * @return int
+         */
         public abstract function getEta();
 
+        /**
+         * @return int
+         */
         public abstract function getSpeed();
 
+        /**
+         * @return int
+         */
         public abstract function getStatusCode();
 
+        /**
+         * @return string
+         */
         public abstract function getWanLink();
 
+        /**
+         * @return string
+         */
         public abstract function getLanLink();
 
+        /**
+         * @param $config
+         * @param $serviceId
+         *
+         * @throws \Exception
+         */
         public function __construct($config, $serviceId)
         {
                 foreach ($this->requiredConfig as $configVar) {
@@ -46,6 +70,9 @@ abstract class Service
                 $this->fetchData();
         }
 
+        /**
+         * @return string
+         */
         private function getStatusString()
         {
                 switch ($this->getStatusCode()) {
@@ -63,6 +90,9 @@ abstract class Service
                 }
         }
 
+        /**
+         * @return int
+         */
         protected final function getRequestType()
         {
                 $app = Slim::getInstance();
@@ -75,6 +105,9 @@ abstract class Service
                 return self::REQUEST_LAN;
         }
 
+        /**
+         * @return array
+         */
         public final function getTemplateData()
         {
                 return array(

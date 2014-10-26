@@ -17,7 +17,7 @@ class Sabnzbd extends \ServerMenu\Service
                 $eta, // Time left until completion
                 $speed; // Current transfer speed
 
-        protected $requiredConfig = array('service', 'title', 'url', 'api_key', 'public_address');
+        protected $requiredConfig = array('plugin', 'title', 'url', 'api_key', 'public_address');
 
         protected function fetchData()
         {
