@@ -29,10 +29,8 @@ jQuery( document ).ready(function( $ ) {
 
     setInterval(function() {
 	$(".data-reload").each(function() {
-	    $(this).loading();
 	    $(this).load("/ajax/"+$(this).data('loadtype')+"/"+$(this).data('id'), function(e,s,j){
 		if (s != 'error') {
-		    $(this).finished();
 		    $(".ttip").tooltip();
 		}
 	    });
