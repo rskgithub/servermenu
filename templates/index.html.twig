@@ -10,6 +10,35 @@
         {% endfor %}
     </div>
     <hr />
+
+    <div class="row row-centered" id="searchEngines">
+        <div class="col-lg-12">
+            <form class="form-inline" role="form" onkeypress="if (event.keyCode == 13) { $('#btnSearch').click(); return false; }">
+                <div class="row">
+                    <div class="form-group col-md-6 col-xs-12 col-lg-6 col-sm-6">
+                        <label class="sr-only" for="searchTerm">Search term</label>
+                        <input type="search" class="form-control input-block search-query" id="searchTerm"
+                               name="searchTerm" placeholder="Enter search term" style="width:100%;">
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-4 col-lg-4">
+                        <label class="sr-only" for="searchEngine">Choose search engine</label>
+                        <select class="form-control" id="searchEngine" name="searchEngine" style="width:100%;">
+                            {% for searchProviderId, searchProviderConfig in config.searchProviders %}
+                                <option value="{{ searchProviderId }}">{{ searchProviderConfig.plugin }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-2 col-lg-2">
+                        <a class="btn btn-primary btn-block" id="btnSearch">Search</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row row-centered hidden" id="searchResults">
+        <hr />
+    </div>
+    <hr />
     <div class="row row-centered" id="feeds">
     <ul class="nav nav-tabs" role="tablist">
         {% for feedId, feedConfig in config.feeds %}
