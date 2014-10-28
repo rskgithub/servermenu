@@ -8,10 +8,13 @@
 
 namespace ServerMenu\Services\Sabnzbd;
 
+use ServerMenu\Receiver;
 use ServerMenu\Service;
 
 class Sabnzbd extends \ServerMenu\Service
 {
+	use Receiver;
+
         private $status, // Integer containing current status code
                 $remaining, // Number of items left in queue
                 $eta, // Time left until completion
@@ -19,7 +22,7 @@ class Sabnzbd extends \ServerMenu\Service
 
         protected $requiredConfig = array('plugin', 'title', 'url', 'api_key', 'public_address');
 
-        public $receiverTypes = array('nzb');
+        protected $receiverTypes = array('nzb');
 
         protected function fetchData()
         {
@@ -54,7 +57,21 @@ class Sabnzbd extends \ServerMenu\Service
                 }
         }
 
-        public function getRemaining()
+	/**
+	 * The plugin must implement this method to safely be able to
+	 * receive content.
+	 *
+	 * @param $receiverType
+	 * @param $content
+	 * @return mixed
+	 */
+	public function receiveContent($receiverType, $content)
+	{
+		// TODO: Implement receiveContent() method.
+	}
+
+
+	public function getRemaining()
         {
                 return (int)$this->remaining;
         }
