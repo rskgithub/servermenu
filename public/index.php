@@ -113,6 +113,15 @@ $app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) u
 	$app->render($serviceType . '.html.twig', $service->getTemplateData(), 200);
 });
 
+// Get search
+$app->get('/ajax/search/:pluginId/:query', function ($pluginId, $query) use ($app, $config) {
+	if (!$plugin = \ServerMenu\PluginLoader::fetch('searchEngine', $pluginId))
+		$app->notFound();
+
+	// Render Service HTML
+	$app->render('feed.html.twig', $plugin->getTemplateData($query), 200);
+});
+
 
 // Define 404 template
 $app->notFound(function () use ($app) {
