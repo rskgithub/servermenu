@@ -15,7 +15,7 @@ class Transmission extends Service {
 
         protected $requiredConfig = array('plugin', 'title', 'hostname', 'port', 'username', 'password', 'public_address');
 
-        public $receivers = array(Service::RECEIVER_MAGNET, Service::RECEIVER_TORRENT);
+        public $receiverTypes = array(Service::RECEIVER_MAGNET, Service::RECEIVER_TORRENT);
 
         private $status, // Integer containing current status code
                 $remaining, // Number of items left in queue
@@ -23,14 +23,21 @@ class Transmission extends Service {
                 $speed, // Current transfer speed
                 $upSpeed; // Upload speed
 
+	private function getConnection()
+	{
+		$connection = new TransmissionRPC(
+			$this->getLanLink() . "/rpc",
+			$this->config['username'],
+			$this->config['password'],
+			false
+		);
+
+		return $connection;
+	}
+
         protected function fetchData()
         {
-                $rpc = new TransmissionRPC(
-                        $this->getLanLink() . "/rpc",
-                        $this->config['username'],
-                        $this->config['password'],
-                        false
-                );
+                $rpc = $this->getConnection();
 
                 $this->status = Service::STATUS_OFFLINE;
                 $this->remaining = 0;
@@ -68,6 +75,15 @@ class Transmission extends Service {
                         $this->status = Service::STATUS_IDLE;
                 }
         }
+
+	public function receiveContent($receiverType, $content) {
+		$rpc = $this->getConnection();
+		$result = $rpc->add($content);
+
+		if ($result['result'] == 'success')
+			return true;
+		return false;
+	}
 
         public function getRemaining()
         {
