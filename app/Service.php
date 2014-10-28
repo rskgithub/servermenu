@@ -3,7 +3,7 @@ namespace ServerMenu;
 
 use Slim\Slim;
 
-abstract class Service extends Plugin
+abstract class Service
 {
 
         const STATUS_OFFLINE = 0;
