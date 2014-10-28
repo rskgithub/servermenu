@@ -18,8 +18,9 @@ abstract class SearchEngine {
 	 *
 	 * @param string $searchQuery
 	 * @param int $amount
+	 * @param int $beginAt
 	 * @return mixed
 	 */
-	abstract function getTemplateData($searchQuery, $amount = self::DEFAULT_AMOUNT);
+	abstract public function getTemplateData($searchQuery, $amount = self::DEFAULT_AMOUNT, $beginAt = 0);
 
 }

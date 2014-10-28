@@ -82,6 +82,17 @@ $app->post('/api/send/:pluginType/:pluginId', 'apiRequest',
 	}
 );
 
+$app->get('/api/search/:pluginId/:amount/:beginAt/:searchQuery', 'apiRequest',
+	function ($pluginId, $amount, $beginAt, $searchQuery) use ($app, $config) {
+		/* @var $plugin \ServerMenu\SearchEngine */
+		if (!$plugin = \ServerMenu\PluginLoader::fetch('searchEngine', $pluginId))
+			return $app->notFound();
+
+		$result = $plugin->getTemplateData($searchQuery, $amount, $beginAt);
+
+		$app->render(200, array('result' => $result));
+	}
+);
 
 /*
  * AJAX Actions

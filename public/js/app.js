@@ -41,7 +41,7 @@ jQuery(document).ready(function ($) {
 
     // Handle receiver requests
 
-    $("#feeds").on('click', 'button', function () {
+    $("body").on('click', 'button.sender', function () {
         var button = this;
         var items = $.getJSON(
             "/api/receivers/" + $(this).data('plugintype') + "/" + $(this).data('receivertype'),
@@ -94,7 +94,13 @@ jQuery(document).ready(function ($) {
                 console.log(data);
             }
         );
+    });
 
+    $("#search").click(function(){
+        var url = "/ajax/search/" + $("#searchEngine").val() + "/" + encodeURIComponent($("#searchQuery").val());
+        $("#searchResults").show().loading().load(url, function(){
+            $(this).finished();
+        });
     });
 
     // Miscellaneous UI stuff
