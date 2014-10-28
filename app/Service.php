@@ -17,27 +17,58 @@ abstract class Service
         const RECEIVER_MAGNET = 2;
         const RECEIVER_NZB = 3;
 
-        protected
-                $requiredConfig, // Array containing the required values in config
+	/**
+	 * Populate with an array of required config items. Should at minimum
+	 * contain an array with string 'plugin' equal to the class name
+	 * of the Service.
+	 *
+	 * @var
+	 */
+	protected $requiredConfig;
 
-                $config, // Configuration store
-                $serviceId; // Service ID;
+	/**
+	 * Will be populated with user configuration of the Service.
+	 *
+	 * @var
+	 */
+	protected $config;
 
-        protected abstract function fetchData();
+	/**
+	 * Will be populated with the Service ID.
+	 *
+	 * @var
+	 */
+	protected $serviceId;
+
+
+	/**
+	 * Called when application wants fresh data. Use this method
+	 * to query Services for new data.
+	 *
+	 * @return mixed
+	 */
+	protected abstract function fetchData();
 
 	public $receiverTypes; // Populate with array containing types of content the service can receive
 
         /**
+         * Number of items left in Service queue
+         *
          * @return int
          */
         public abstract function getRemaining();
 
         /**
+         * UNIX timestamp of completion date
+         *
          * @return int
          */
         public abstract function getEta();
 
         /**
+         * Current combined transfer speed of items in Service queue
+         * in bytes per second
+         *
          * @return int
          */
         public abstract function getSpeed();
@@ -48,11 +79,15 @@ abstract class Service
         public abstract function getStatusCode();
 
         /**
+         * Link to Service, accessible outside the local network.
+         *
          * @return string
          */
         public abstract function getWanLink();
 
         /**
+         * Link to Service, accessible inside local network.
+         *
          * @return string
          */
         public abstract function getLanLink();
@@ -64,6 +99,8 @@ abstract class Service
 	}
 
 	/**
+	 * Check and assign config and serviceId to Service.
+	 *
          * @param $config
          * @param $serviceId
          *
@@ -82,6 +119,8 @@ abstract class Service
         }
 
         /**
+         * Returns human-readable status string
+         *
          * @return string
          */
         private function getStatusString()
@@ -102,7 +141,10 @@ abstract class Service
         }
 
         /**
-         * @return int
+         * Establish whether this is a WAN or LAN request, used to
+         * send correct links to browsers.
+         *
+         * @return int Request type
          */
         protected final function getRequestType()
         {
@@ -117,6 +159,8 @@ abstract class Service
         }
 
         /**
+         * Get data for use in Twig templates
+         *
          * @return array
          */
         public final function getTemplateData()

@@ -9,6 +9,13 @@
 namespace ServerMenu;
 
 
+/**
+ * Class Utility
+ *
+ * Various static utility methods used throughout the application.
+ *
+ * @package ServerMenu
+ */
 class Utility
 {
 

@@ -16,8 +16,10 @@ class PluginLoader {
         private static $plugins, $receivers;
 
         /**
-         * @param $pluginType
-         * @param $pluginId
+         * Fetch a certain plugin (Service, SearchEngine or Feed)
+         *
+         * @param string $pluginType
+         * @param int $pluginId
          *
          * @return Object
          * @throws \Exception
@@ -44,7 +46,16 @@ class PluginLoader {
 
         }
 
-        public static function getReceivers($pluginType, $receiverType) {
+	/**
+	 * Returns plugins (currently only Services) that can receive
+	 * certain "receiverTypes".
+	 *
+	 * @param string $pluginType
+	 * @param int $receiverType
+	 * @return array
+	 * @throws \Exception
+	 */
+	public static function getReceivers($pluginType, $receiverType) {
                 if (!isset(self::$receivers)) {
                         self::$receivers[$pluginType][$receiverType] = array();
                 } else {
@@ -62,7 +73,9 @@ class PluginLoader {
                         $name = $pluginConfig['plugin'];
 
                         if (file_exists(__DIR__.'/'.$pluginType.'/'.$name.'/'.$name.'.php')) {
-                                $className = "\\ServerMenu\\{$pluginType}\\$name\\$name";
+                                $className = "\\ServerMenu\\$pluginClass\\$name\\$name";
+
+	                        /* @var $classInstance Receiver */
                                 $classInstance = new $className($pluginConfig, $pluginId);
 
                                 if (isset($classInstance->receiverTypes) && (in_array($receiverType, $classInstance->receiverTypes))) {
