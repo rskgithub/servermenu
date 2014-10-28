@@ -19,7 +19,7 @@ class Sabnzbd extends \ServerMenu\Service
 
         protected $requiredConfig = array('plugin', 'title', 'url', 'api_key', 'public_address');
 
-        public $receivers = array(Service::RECEIVER_NZB);
+        public $receiverTypes = array('nzb');
 
         protected function fetchData()
         {

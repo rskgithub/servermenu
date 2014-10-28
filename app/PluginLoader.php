@@ -78,15 +78,16 @@ class PluginLoader {
 	                        /* @var $classInstance Receiver */
                                 $classInstance = new $className($pluginConfig, $pluginId);
 
-                                if (isset($classInstance->receiverTypes) && (in_array($receiverType, $classInstance->receiverTypes))) {
-                                        self::$receivers[$pluginType][$receiverType][] = array(
-                                                'pluginId' => $pluginId,
-                                                'plugin'   => $name
-                                        );
-                                }
+	                        if (!in_array('ServerMenu\Receiver', class_uses($classInstance)))
+		                        continue;
 
-                        } else {
-                                throw new \Exception('Plugin not found');
+	                        if (!$classInstance->canReceive($receiverType))
+		                        continue;
+
+                                self::$receivers[$pluginType][$receiverType][] = array(
+                                        'pluginId' => $pluginId,
+                                        'plugin'   => $name
+                                );
                         }
                 }
 

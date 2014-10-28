@@ -13,9 +13,6 @@ abstract class Service
         const STATUS_UNKNOWN = 10;
         const REQUEST_LAN = 1;
         const REQUEST_WAN = 2;
-        const RECEIVER_TORRENT = 1;
-        const RECEIVER_MAGNET = 2;
-        const RECEIVER_NZB = 3;
 
 	/**
 	 * Populate with an array of required config items. Should at minimum
@@ -49,7 +46,6 @@ abstract class Service
 	 */
 	protected abstract function fetchData();
 
-	public $receiverTypes; // Populate with array containing types of content the service can receive
 
         /**
          * Number of items left in Service queue
@@ -91,12 +87,6 @@ abstract class Service
          * @return string
          */
         public abstract function getLanLink();
-
-	public function receive($receiverType, $content) {
-		if (!empty($this->receiverTypes) && in_array($receiverType, $this->receiverTypes))
-			return $this->receiveContent($receiverType, $content);
-		return false;
-	}
 
 	/**
 	 * Check and assign config and serviceId to Service.

@@ -9,13 +9,16 @@
 namespace ServerMenu\Services\Transmission;
 
 
+use ServerMenu\Receiver;
 use ServerMenu\Service;
 
 class Transmission extends Service {
 
+	use Receiver;
+
         protected $requiredConfig = array('plugin', 'title', 'hostname', 'port', 'username', 'password', 'public_address');
 
-        public $receiverTypes = array(Service::RECEIVER_MAGNET, Service::RECEIVER_TORRENT);
+        protected $receiverTypes = array('magnet', 'torrent');
 
         private $status, // Integer containing current status code
                 $remaining, // Number of items left in queue
