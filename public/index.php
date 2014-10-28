@@ -65,10 +65,21 @@ $app->get('/api/:type', 'apiRequest', function ($type) use ($app, $config) {
 });
 
 $app->get('/api/receivers/:pluginType/:receiverType', 'apiRequest',
-        function ($pluginType, $receiverType) use ($app, $config) {
-                $plugins = \ServerMenu\PluginLoader::getReceivers($pluginType, $receiverType);
-                $app->render(200, $plugins);
-        }
+	function ($pluginType, $receiverType) use ($app, $config) {
+		$plugins = \ServerMenu\PluginLoader::getReceivers($pluginType, $receiverType);
+		$app->render(200, $plugins);
+	}
+);
+
+$app->post('/api/send/:pluginType/:pluginId', 'apiRequest',
+	function ($pluginType, $pluginId) use ($app, $config) {
+		if (!$plugin = \ServerMenu\PluginLoader::fetch($pluginType, $pluginId))
+			return $app->notFound();
+
+		$result = $plugin->receive($_POST['receivertype'], $_POST['content']);
+
+		$app->render(200, array('result' => $result));
+	}
 );
 
 

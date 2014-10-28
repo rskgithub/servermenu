@@ -65,7 +65,7 @@ class PluginLoader {
                                 $className = "\\ServerMenu\\{$pluginType}\\$name\\$name";
                                 $classInstance = new $className($pluginConfig, $pluginId);
 
-                                if (isset($classInstance->receivers) && (in_array($receiverType, $classInstance->receivers))) {
+                                if (isset($classInstance->receiverTypes) && (in_array($receiverType, $classInstance->receiverTypes))) {
                                         self::$receivers[$pluginType][$receiverType][] = array(
                                                 'pluginId' => $pluginId,
                                                 'plugin'   => $name

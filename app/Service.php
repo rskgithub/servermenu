@@ -25,6 +25,8 @@ abstract class Service extends Plugin
 
         protected abstract function fetchData();
 
+	public $receiverTypes; // Populate with array containing types of content the service can receive
+
         /**
          * @return int
          */
@@ -55,7 +57,13 @@ abstract class Service extends Plugin
          */
         public abstract function getLanLink();
 
-        /**
+	public function receive($receiverType, $content) {
+		if (!empty($this->receiverTypes) && in_array($receiverType, $this->receiverTypes))
+			return $this->receiveContent($receiverType, $content);
+		return false;
+	}
+
+	/**
          * @param $config
          * @param $serviceId
          *
@@ -123,5 +131,6 @@ abstract class Service extends Plugin
                         'link'       => (($this->getRequestType() == self::REQUEST_WAN) ? $this->getWanLink() : $this->getLanLink()),
                 );
         }
+
 
 }

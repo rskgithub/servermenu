@@ -41,28 +41,60 @@ jQuery( document ).ready(function( $ ) {
 
     // Handle receiver requests
 
-    $("#feeds").on('click', 'button', function() {
-	var button = this;
-	var items = $.getJSON(
-	    "/api/receivers/"+$(this).data('plugintype')+"/"+$(this).data('receivertype'),
-		function(data) {
-		    $(data.plugins).each(function() {
-			    $(button).siblings(".dropdown-menu").html(
-				"<li role='presentation'>" +
-				"<a class='dropdown-item data-send' role='menuitem' tabindex='-1' data-pluginType='"+ $(button).data('plugintype') +"' " +
-				"data-receivertype='"+ $(button).data('receivertype') +"' " +
-				"data-pluginid='"+ this.pluginId +"' data-content='"+ $(button).data('content') +"' href='#'>"+this.plugin+"</a>" +
-				"</li>"
-			    );
-			}
-		    );
-
-		}
-	);
+    $("#feeds").on('click', 'button', function () {
+        var button = this;
+        var items = $.getJSON(
+            "/api/receivers/" + $(this).data('plugintype') + "/" + $(this).data('receivertype'),
+            function (data) {
+                if (data.plugins == null) {
+                    $(button).siblings(".dropdown-menu").html(
+                        $("<li />")
+                            .attr('role', 'presentation')
+                            .addClass('disabled')
+                            .html(
+                            $("<a />")
+                                .addClass("dropdown-item")
+                                .attr("role", "menuitem")
+                                .html("No receivers available")
+                        )
+                    );
+                } else {
+                    $(data.plugins).each(function (index, pluginData) {
+                        $(button).siblings(".dropdown-menu").html(
+                            $("<li />")
+                                .attr('role', 'presentation')
+                                .html(
+                                $("<a />")
+                                    .addClass("dropdown-item data-send")
+                                    .attr("role", "menuitem")
+                                    .attr("tabindex", "-1")
+                                    .data('plugintype', $(button).data('plugintype'))
+                                    .data("receivertype", $(button).data('receivertype'))
+                                    .data("pluginid", pluginData.pluginId)
+                                    .data("content", $(button).data('content'))
+                                    .data("test", "test")
+                                    .attr("href", "#")
+                                    .html(pluginData.plugin)
+                            )
+                        );
+                    })
+                }
+            }
+        );
     });
 
-    $("body").on('click', '.data-send', function() {
-	console.log($(this).data());
+    $("body").on('click', '.data-send', function () {
+        $.post(
+            "/api/send/" + $(this).data('plugintype') + "/" + $(this).data('pluginid'),
+            {
+                'content': $(this).data('content'),
+                'receivertype': $(this).data('receivertype')
+            },
+            function (data) {
+                console.log(data);
+            }
+        );
+
     });
 
     // Miscellaneous UI stuff
