@@ -3,22 +3,22 @@ require '../vendor/autoload.php';
 
 // Prepare app
 $app = new \Slim\Slim(array(
-        'templates.path' => '../templates',
+	'templates.path' => '../templates',
 ));
 
 // Prepare view
 $app->view(new \Slim\Views\Twig());
 $app->view->parserOptions = array(
-        'charset'          => 'utf-8',
-        'cache'            => realpath('../templates/cache'),
-        'auto_reload'      => true,
-        'strict_variables' => false,
-        'autoescape'       => true
+	'charset' => 'utf-8',
+	'cache' => realpath('../templates/cache'),
+	'auto_reload' => true,
+	'strict_variables' => false,
+	'autoescape' => true
 );
 
 $app->view->parserExtensions = array(
-        new \Slim\Views\TwigExtension(),
-        new \JSW\Twig\TwigExtension()
+	new \Slim\Views\TwigExtension(),
+	new \JSW\Twig\TwigExtension()
 );
 
 
@@ -32,11 +32,11 @@ $app->config('s', $config);
 
 // Front page
 $app->get('/', function () use ($app, $config) {
-        $template_variables = array(
-                'config' => $config
-        );
+	$template_variables = array(
+		'config' => $config
+	);
 
-        $app->render('index.html.twig', $template_variables);
+	$app->render('index.html.twig', $template_variables);
 });
 
 
@@ -47,21 +47,21 @@ $app->get('/', function () use ($app, $config) {
 // API middleware
 function apiRequest()
 {
-        $app = \Slim\Slim::getInstance();
-        $app->view(new \JsonApiView());
-        $app->add(new \JsonApiMiddleware());
+	$app = \Slim\Slim::getInstance();
+	$app->view(new \JsonApiView());
+	$app->add(new \JsonApiMiddleware());
 }
 
 // Get list of plugins
 $app->get('/api/:type', 'apiRequest', function ($type) use ($app, $config) {
-        if (empty($config[$type])) {
-                $app->notFound();
-                return;
-        }
+	if (empty($config[$type])) {
+		$app->notFound();
+		return;
+	}
 
-        $app->render(200, array(
-                $type => array_keys($config[$type]),
-        ));
+	$app->render(200, array(
+		$type => array_keys($config[$type]),
+	));
 });
 
 $app->get('/api/receivers/:pluginType/:receiverType', 'apiRequest',
@@ -89,23 +89,23 @@ $app->post('/api/send/:pluginType/:pluginId', 'apiRequest',
 
 // Get Specific Service
 $app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) use ($app, $config) {
-        //sleep(rand(1, 2));
+	//sleep(rand(1, 2));
 
-        if (!isset($config[$serviceType.'s'][$serviceId])) {
-                $app->notFound();
-                return;
-        }
+	if (!isset($config[$serviceType . 's'][$serviceId])) {
+		$app->notFound();
+		return;
+	}
 
-        $service = \ServerMenu\PluginLoader::fetch($serviceType, $serviceId);
+	$service = \ServerMenu\PluginLoader::fetch($serviceType, $serviceId);
 
-        // Render Service HTML
-        $app->render($serviceType.'.html.twig', $service->getTemplateData(), 200);
+	// Render Service HTML
+	$app->render($serviceType . '.html.twig', $service->getTemplateData(), 200);
 });
 
 
 // Define 404 template
 $app->notFound(function () use ($app) {
-        $app->render('404.html.twig');
+	$app->render('404.html.twig');
 });
 
 // Run app
