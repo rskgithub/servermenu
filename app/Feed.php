@@ -11,10 +11,6 @@ namespace ServerMenu;
 
 abstract class Feed {
 
-        const TYPE_MAGNET = 1;
-        const TYPE_TORRENT = 2;
-        const TYPE_NZB = 3;
-
         const DEFAULT_AMOUNT = 30;
 
         abstract function getTemplateData();
