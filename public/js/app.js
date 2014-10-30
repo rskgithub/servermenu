@@ -43,57 +43,71 @@ jQuery(document).ready(function ($) {
 
     $("body").on('click', 'button.sender', function () {
         var button = this;
-        var items = $.getJSON(
-            "/api/receivers/" + $(this).data('plugintype') + "/" + $(this).data('receivertype'),
-            function (data) {
-                if (data.plugins == null) {
-                    $(button).siblings(".dropdown-menu").html(
-                        $("<li />")
-                            .attr('role', 'presentation')
-                            .addClass('disabled')
-                            .html(
-                            $("<a />")
-                                .addClass("dropdown-item")
-                                .attr("role", "menuitem")
-                                .html("No receivers available")
-                        )
-                    );
-                } else {
-                    $(data.plugins).each(function (index, pluginData) {
-                        $(button).siblings(".dropdown-menu").html(
+
+        $(this).siblings('ul.dropdown-menu').children('.sendertype').each(function(){
+            console.log($(this).data('plugintype'));
+            var current = this;
+
+            $.getJSON(
+                "/api/receivers/" + $(this).data('plugintype') + "/" + $(this).data('receivertype'),
+                function (data) {
+                    $(current).siblings(".dropdown-loading").remove();
+                    $(button).removeClass('sender');
+                    if (data.plugins == null) {
+                        $(current).after(
                             $("<li />")
                                 .attr('role', 'presentation')
+                                .addClass('disabled')
                                 .html(
                                 $("<a />")
-                                    .addClass("dropdown-item data-send")
+                                    .addClass("dropdown-item")
                                     .attr("role", "menuitem")
-                                    .attr("tabindex", "-1")
-                                    .data('plugintype', $(button).data('plugintype'))
-                                    .data("receivertype", $(button).data('receivertype'))
-                                    .data("pluginid", pluginData.pluginId)
-                                    .data("content", $(button).data('content'))
-                                    .data("test", "test")
-                                    .attr("href", "#")
-                                    .html(pluginData.plugin)
+                                    .html("No receivers available")
                             )
                         );
-                    })
+                    } else {
+                        $(data.plugins).each(function (index, pluginData) {
+                            $(current).after(
+                                $("<li />")
+                                    .attr('role', 'presentation')
+                                    .html(
+                                    $("<a />")
+                                        .addClass("dropdown-item data-send")
+                                        .attr("role", "menuitem")
+                                        .attr("tabindex", "-1")
+                                        .data('plugintype', $(current).data('plugintype'))
+                                        .data("receivertype", $(current).data('receivertype'))
+                                        .data("pluginid", pluginData.pluginId)
+                                        .data("content", $(current).data('content'))
+                                        .data("test", "test")
+                                        .attr("href", "#")
+                                        .html(pluginData.plugin)
+                                )
+                            );
+                        })
+                    }
                 }
-            }
-        );
+            );
+        });
     });
 
     $("body").on('click', '.data-send', function () {
-        $.post(
-            "/api/send/" + $(this).data('plugintype') + "/" + $(this).data('pluginid'),
-            {
-                'content': $(this).data('content'),
-                'receivertype': $(this).data('receivertype')
-            },
-            function (data) {
-                console.log(data);
-            }
-        );
+        if ($(this).data('plugintype') == 'searchEngine') {
+            $("#searchQuery").val($(this).data('content'));
+            $("#searchEngine").val($(this).data('pluginid'));
+            $("#search").click();
+        } else {
+            $.post(
+                "/api/send/" + $(this).data('plugintype') + "/" + $(this).data('pluginid'),
+                {
+                    'content': $(this).data('content'),
+                    'receivertype': $(this).data('receivertype')
+                },
+                function (data) {
+                    console.log(data);
+                }
+            );
+        }
     });
 
     $("#search").click(function(){
