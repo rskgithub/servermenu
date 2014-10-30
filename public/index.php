@@ -1,6 +1,9 @@
 <?php
 require '../vendor/autoload.php';
 
+error_reporting(E_ALL);
+ini_set( 'display_errors','1');
+
 // Prepare app
 $app = new \Slim\Slim(array(
 	'templates.path' => '../templates',
@@ -109,7 +112,8 @@ $app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) u
 
 	$service = \ServerMenu\PluginLoader::fetch($serviceType, $serviceId);
 
-	$service->fetchData();
+	if ($service instanceof \ServerMenu\Service)
+		$service->fetchData();
 
 	// Render Service HTML
 	$app->render($serviceType . '.html.twig', $service->getTemplateData(), 200);
