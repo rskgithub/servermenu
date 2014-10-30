@@ -55,7 +55,7 @@ return array(
                         'plugin'=>'EZTV',
                 ),
                 array(
-                        'plugin'=>'IMDB'
+                        'plugin'=>'ReleaseLog'
                 )
         ),
 
