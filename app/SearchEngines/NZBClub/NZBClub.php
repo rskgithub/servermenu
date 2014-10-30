@@ -11,6 +11,7 @@ namespace ServerMenu\SearchEngines\NZBClub;
 
 use ServerMenu\Receiver;
 use ServerMenu\SearchEngine;
+use ServerMenu\Utility;
 
 class NZBClub extends SearchEngine {
 
@@ -33,13 +34,7 @@ class NZBClub extends SearchEngine {
 	{
 		$urlenc_term = urlencode($searchQuery);
 
-		$pie = new \SimplePie();
-
-		$url = "http://www.nzbclub.com/nzbfeeds.aspx?q=$urlenc_term&ig=2&de=27&szs=14&st=1&ns=1";
-
-		$pie->set_feed_url($url);
-		$pie->cache_location = __DIR__."/../../cache";
-		$pie->init();
+		$pie = Utility::get_simplepie("http://www.nzbclub.com/nzbfeeds.aspx?q=$urlenc_term&ig=2&de=27&szs=14&st=1&ns=1");
 
 		$items = $pie->get_items($beginAt, ($beginAt+$amount));
 		$results = array();
