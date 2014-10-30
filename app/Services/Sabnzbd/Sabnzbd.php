@@ -101,7 +101,7 @@ class Sabnzbd extends \ServerMenu\Service
 
         public function getWanLink()
         {
-                return $this->config['public_url'];
+                return $this->config['public_address'];
         }
 
         public function getLanLink()

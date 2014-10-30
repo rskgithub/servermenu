@@ -57,7 +57,7 @@ class HTTP extends Service {
 
         public function getWanLink()
         {
-                return $this->config['public_link'];
+                return $this->config['public_address'];
         }
 
         public function getLanLink()

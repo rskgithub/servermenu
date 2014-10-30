@@ -140,11 +140,16 @@ abstract class Service
                 $app = Slim::getInstance();
                 $config = $app->config('s');
                 foreach ($config['app']['private_ranges'] as $range) {
-                        if (Utility::cidr_match($app->request->getIp(), $range)) {
-                                return self::REQUEST_LAN;
-                        }
+	                if (!strpos($range, '/')) {
+		                if ($range == $app->request->getIp())
+			                return self::REQUEST_LAN;
+	                } else {
+		                if (Utility::cidr_match($app->request->getIp(), $range))
+			                return self::REQUEST_LAN;
+	                }
                 }
-                return self::REQUEST_LAN;
+
+                return self::REQUEST_WAN;
         }
 
         /**
