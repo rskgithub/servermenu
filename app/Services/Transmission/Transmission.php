@@ -89,7 +89,7 @@ class Transmission extends Service {
 		$rpc = $this->getConnection();
 		$result = $rpc->add($content);
 
-		if ($result['result'] == 'success')
+		if ($result->result == 'success')
 			return true;
 		return false;
 	}
