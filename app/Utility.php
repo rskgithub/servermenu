@@ -19,13 +19,28 @@ namespace ServerMenu;
 class Utility
 {
 
+	/**
+	 * Return pre-configured SimplePie object for parsing RSS feeds
+	 *
+	 * @param $url
+	 * @return \SimplePie
+	 */
+	public static function get_simplepie($url)
+	{
+		$pie = new \SimplePie();
+		$pie->cache_location = __DIR__."/../cache";
+		$pie->set_feed_url($url);
+		$pie->init();
+		return $pie;
+	}
+
         /**
+         * Match an IP address to a CIDR mask
+         *
          * @param $ip
          * @param $cidr
          *
          * @return bool
-         *
-         * Match an IP address to a CIDR mask
          */
         public static function cidr_match($ip, $cidr)
         {
@@ -39,13 +54,13 @@ class Utility
         }
 
         /**
+         * Converts bytes to either kilobytes, megabytes,
+         * gigabytes or terabytes
+         *
          * @param     $bytes
          * @param int $precision
          *
          * @return string
-         *
-         * Converts bytes to either kilobytes, megabytes,
-         * gigabytes or terabytes
          */
         public static function bytes2human($bytes, $precision = 2)
         {
@@ -74,13 +89,13 @@ class Utility
         }
 
         /**
-         * @param $timestamp
-         *
-         * @return string
-         *
          * Converts a UNIX timestamp to relative string
          * from: time()+600
          * to:   '10 minutes'
+         *
+         * @param $timestamp
+         *
+         * @return string
          */
         public static function time2relative($timestamp)
         {

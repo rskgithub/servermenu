@@ -10,7 +10,7 @@ namespace ServerMenu\Feeds\EZTV;
 
 
 use ServerMenu\Feed;
-use ServerMenu\Service;
+use ServerMenu\Utility;
 
 class EZTV extends Feed {
 
@@ -21,10 +21,8 @@ class EZTV extends Feed {
          */
         public function getTemplateData($amount = self::DEFAULT_AMOUNT)
         {
-                $pie = new \SimplePie();
-                $pie->cache_location = __DIR__."/../../cache";
-                $pie->set_feed_url("http://ezrss.it/feed");
-                $pie->init();
+                $pie = Utility::get_simplepie("http://ezrss.it/feed");
+
                 $items = $pie->get_items(0, $amount);
                 $results = array();
                 foreach ($items as $item) {
