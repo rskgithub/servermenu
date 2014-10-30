@@ -6,4 +6,4 @@ A status page for your HTPC server that lets you control all your services: SABn
 Screenshot
 ----------
 
-![screenshot](http://i.imgur.com/QJTxbCJ.png)
+![screenshot](http://mu.ms/f/pPJedb.png)
