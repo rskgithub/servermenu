@@ -42,9 +42,7 @@ class NZBIndex extends SearchEngine {
 
 		$items = $pie->get_items($beginAt, ($beginAt+$amount));
 		$results = array();
-
-		error_log("test");
-
+		
 		foreach ($items as $item) {
 			error_log("parsing: ".print_r($item, true));
 
@@ -60,8 +58,8 @@ class NZBIndex extends SearchEngine {
 			$results[] = array(
 				'title' => $item->get_title(),
 				'subtitle' =>
-					$description_matches[1][0].' &bull; '
-					.$description_matches[2][0].' &bull; '
+					$description_matches[1][0].' • '
+					.$description_matches[2][0].' • '
 					.$description_matches[3][0]. ' days',
 				"size" => false,
 				'link' => $item->get_link(),
