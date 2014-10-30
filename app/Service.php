@@ -15,13 +15,13 @@ abstract class Service
         const REQUEST_WAN = 2;
 
 	/**
-	 * Populate with an array of required config items. Should at minimum
+	 * Should return an array of required config items. Should at minimum
 	 * contain an array with string 'plugin' equal to the class name
 	 * of the Service.
 	 *
 	 * @var
 	 */
-	protected $requiredConfig;
+	protected abstract function getRequiredConfig();
 
 	/**
 	 * Will be populated with user configuration of the Service.
@@ -98,7 +98,7 @@ abstract class Service
          */
         public function __construct($config, $serviceId)
         {
-                foreach ($this->requiredConfig as $configVar) {
+                foreach ($this->getRequiredConfig() as $configVar) {
                         if (!isset($config[$configVar])) {
                                 throw new \Exception("Config variable missing: $configVar");
                         }

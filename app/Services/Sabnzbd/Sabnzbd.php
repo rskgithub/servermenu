@@ -20,9 +20,15 @@ class Sabnzbd extends \ServerMenu\Service
                 $eta, // Time left until completion
                 $speed; // Current transfer speed
 
-        protected $requiredConfig = array('plugin', 'title', 'url', 'api_key', 'public_address');
+        protected function getRequiredConfig()
+        {
+	        return array('plugin', 'title', 'url', 'api_key', 'public_address');
+        }
 
-        protected $receiverTypes = array('nzb');
+	protected function getReceiverTypes()
+	{
+		return array('nzb');
+	}
 
         protected function fetchData()
         {

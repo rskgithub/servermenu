@@ -25,7 +25,7 @@ trait Receiver {
 	 *
 	 * @var
 	 */
-	protected $receiverTypes;
+	protected abstract function getReceiverTypes();
 
 	/**
 	 * Make sure service can handle the receiverType, and send
@@ -48,7 +48,7 @@ trait Receiver {
 	 * @return bool
 	 */
 	public final function canReceive($receiverType) {
-		if (!empty($this->receiverTypes) && in_array($receiverType, $this->receiverTypes))
+		if (in_array($receiverType, $this->getReceiverTypes()))
 			return true;
 		return false;
 	}

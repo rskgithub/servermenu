@@ -16,9 +16,15 @@ class Transmission extends Service {
 
 	use Receiver;
 
-        protected $requiredConfig = array('plugin', 'title', 'hostname', 'port', 'username', 'password', 'public_address');
+	protected function getRequiredConfig()
+	{
+		return array('plugin', 'title', 'hostname', 'port', 'username', 'password', 'public_address');
+	}
 
-        protected $receiverTypes = array('magnet', 'torrent');
+        protected function getReceiverTypes()
+        {
+	        return array('magnet', 'torrent');
+        }
 
         private $status, // Integer containing current status code
                 $remaining, // Number of items left in queue
