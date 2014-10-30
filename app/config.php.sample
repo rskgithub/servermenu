@@ -9,7 +9,7 @@ return array(
 
 	'services' => array(
 		array(
-			'service' => 'Sabnzbd',
+			'plugin' => 'Sabnzbd',
 			'title' => 'SABnzbd+',
 			'url' => "http://server:8010/sabnzbd",
 			'api_key' => 'd51asdfergfa34fghfghf23rebh5h65ks5',
@@ -17,7 +17,7 @@ return array(
 		),
 
 		array(
-			'service' => 'Transmission',
+			'plugin' => 'Transmission',
 			'title' => 'Transmission',
 			'hostname' => 'server',
 			'port' => '8011',
@@ -27,7 +27,7 @@ return array(
 		),
 
 		array(
-			'service' => 'HTTP',
+			'plugin' => 'HTTP',
 			'title => 'Sickbeard',
 			'hostname' => 'server',
 			'port' => '8012',
@@ -35,7 +35,7 @@ return array(
 		),
 
         array(
-            'service' => 'HTTP',
+            'plugin' => 'HTTP',
             'title' => 'Webmin',
             'hostname' => 'server',
             'port' => '10000',
@@ -50,10 +50,14 @@ return array(
 	 * them inside the Feeds folder and add them here.
 	 */
 
-	'feeds' => array(
-        'Eztv',
-        'ImdbBluray'
-    ),
+        'feeds' => array(
+                array(
+                        'plugin'=>'EZTV',
+                ),
+                array(
+                        'plugin'=>'IMDB'
+                )
+        ),
 
 
 	/*
@@ -61,11 +65,17 @@ return array(
 	 * them inside the SearchProviders folder and add them here.
 	 */
 
-	'searchproviders' => array(
-        'Thepiratebay',
-        'NzbIndex',
-        'NzbClub'
-    ),
+        'searchEngines' => array(
+	        array(
+		        "plugin" => "ThePirateBay"
+	        ),
+                array(
+	                "plugin" => "NZBIndex"
+                ),
+                array(
+	                "plugin" => "NZBClub"
+                ),
+        ),
 
 	/*
 	 * Global Server Menu configuration.
