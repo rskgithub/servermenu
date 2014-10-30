@@ -10,21 +10,26 @@
     </td>
 
     <td style="text-align:right; min-width:85px;">
-        {% for action in result.actions %}
+        {% if result.actions is not empty %}
             <div class="dropdown">
-                <button class="btn btn-default btn-xs dropdown-toggle sender" data-plugintype="{{ action.pluginType }}"
-                        data-receivertype="{{ action.receiverType }}"
-                        data-content="{{ action.content }}" type="button" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-{{ action.glyphicon }}"></span>
-                    {{ action.title }}
+                <button class="btn btn-default btn-xs dropdown-toggle sender"  type="button" data-toggle="dropdown">
+                    Actions
                 </button>
+
                 <ul class="dropdown-menu">
-                    <li role="presentation">
-                        <a class="dropdown-item-loading disabled" role="menuitem" tabindex="-1" href="#">&nbsp;</a>
-                    </li>
+                    {% for action in result.actions %}
+                        <li role="presentation" class="dropdown-header sendertype" data-plugintype="{{ action.pluginType }}"
+                            data-receivertype="{{ action.receiverType }}"
+                            data-content="{{ action.content }}">
+                            <span class="glyphicon glyphicon-{{ action.glyphicon }}"></span> {{ action.title }}
+                        </li>
+                        <li role="presentation" class="dropdown-loading">
+                            <a class="dropdown-item-loading disabled" role="menuitem" tabindex="-1" href="#">&nbsp;</a>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
-        {% endfor %}
+        {% endif %}
     </td>
 </tr>
 {% endfor %}
