@@ -4,7 +4,6 @@
 
 ### Definitive
 
-- navbar adheres to sites defined in config
 - dark theme
 - password protection
 
