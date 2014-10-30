@@ -35,6 +35,7 @@ jQuery(document).ready(function ($) {
                 if (s != 'error') {
                     $(".ttip").tooltip();
                 }
+                $(this).finished();
             });
         })
     }, 5000);
@@ -97,14 +98,14 @@ jQuery(document).ready(function ($) {
             $("#searchEngine").val($(this).data('pluginid'));
             $("#search").click();
         } else {
+            if ($(this).data('plugintype') == 'service') {
+                $("#service-"+$(this).data('pluginid')).loading();
+            }
             $.post(
                 "/api/send/" + $(this).data('plugintype') + "/" + $(this).data('pluginid'),
                 {
                     'content': $(this).data('content'),
                     'receivertype': $(this).data('receivertype')
-                },
-                function (data) {
-                    console.log(data);
                 }
             );
         }
