@@ -22,10 +22,9 @@
 
 ## SearchProviders
 
-- add nzbclub, thepiratebay
+- more searchproviders
 
 ## Feeds
 
-- add imdb
 - more sites?
 
