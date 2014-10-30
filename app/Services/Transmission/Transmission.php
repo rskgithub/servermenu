@@ -44,7 +44,7 @@ class Transmission extends Service {
 		return $connection;
 	}
 
-        protected function fetchData()
+        public function fetchData()
         {
                 $rpc = $this->getConnection();
 

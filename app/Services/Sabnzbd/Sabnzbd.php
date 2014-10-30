@@ -30,7 +30,7 @@ class Sabnzbd extends \ServerMenu\Service
 		return array('nzb');
 	}
 
-        protected function fetchData()
+        public function fetchData()
         {
                 $apiUrl = "{$this->config['url']}/api?mode=qstatus&output=json&apikey={$this->config['api_key']}";
 

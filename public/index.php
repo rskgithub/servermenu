@@ -109,6 +109,8 @@ $app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) u
 
 	$service = \ServerMenu\PluginLoader::fetch($serviceType, $serviceId);
 
+	$service->fetchData();
+
 	// Render Service HTML
 	$app->render($serviceType . '.html.twig', $service->getTemplateData(), 200);
 });

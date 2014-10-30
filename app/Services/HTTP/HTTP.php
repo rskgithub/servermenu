@@ -21,7 +21,7 @@ class HTTP extends Service {
         private $upCode = 302,
                 $status;
 
-        protected function fetchData()
+        public function fetchData()
         {
                 $url = "http://{$this->config['hostname']}:{$this->config['port']}";
 

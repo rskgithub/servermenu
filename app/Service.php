@@ -44,7 +44,7 @@ abstract class Service
 	 *
 	 * @return mixed
 	 */
-	protected abstract function fetchData();
+	public abstract function fetchData();
 
 
         /**
@@ -105,7 +105,6 @@ abstract class Service
                 }
                 $this->config = $config;
                 $this->serviceId = $serviceId;
-                $this->fetchData();
         }
 
         /**
