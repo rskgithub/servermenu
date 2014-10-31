@@ -1,93 +1,125 @@
 <?php
 return array(
 
-	/*
-	 * Add a service to your Server Menu by adding it to the
-	 * 'services' array below. Look inside the service for the needed
-	 * configuration variables.
-	 */
-
-	'services' => array(
-		array(
-			'plugin' => 'Sabnzbd',
-			'title' => 'SABnzbd+',
-			'url' => "http://server:8010/sabnzbd",
-			'api_key' => 'd51asdfergfa34fghfghf23rebh5h65ks5',
-			'public_address' => 'http://server.dynip.com/sabnzbd',
-		),
-
-		array(
-			'plugin' => 'Transmission',
-			'title' => 'Transmission',
-			'hostname' => 'server',
-			'port' => '8011',
-			'username' => 'transmission',
-			'password' => 'password',
-			'public_address' => 'http://server.dynip.com/transmission',
-		),
-
-		array(
-			'plugin' => 'HTTP',
-			'title => 'Sickbeard',
-			'hostname' => 'server',
-			'port' => '8012',
-			'public_address' => 'http://server.dynip.com/sickbeard',
-		),
-
-        array(
-            'plugin' => 'HTTP',
-            'title' => 'Webmin',
-            'hostname' => 'server',
-            'port' => '10000',
-            'public_address' => 'http://server.dynip.com:10000'
-        )
-
-	),
+	//
+	//
+	//   ___                            __ __
+	//  / __> ___  _ _  _ _  ___  _ _  |  \  \ ___ ._ _  _ _
+	//  \__ \/ ._>| '_>| | |/ ._>| '_> |     |/ ._>| ' || | |
+	//  <___/\___.|_|  |__/ \___.|_|   |_|_|_|\___.|_|_|`___|
+	//
+	//          http://github.com/fredsted/ServerMenu
+	//
+	//
 
 
-	/*
-	 * Add RSS feeds below. No configuration neccessary, just drop
-	 * them inside the Feeds folder and add them here.
-	 */
-
-        'feeds' => array(
-                array(
-                        'plugin'=>'EZTV',
-                ),
-                array(
-                        'plugin'=>'ReleaseLog'
-                )
-        ),
-
-
-	/*
-	 * Add search providers below. No configuration neccessary, just drop
-	 * them inside the SearchProviders folder and add them here.
-	 */
-
-        'searchEngines' => array(
-	        array(
-		        "plugin" => "ThePirateBay"
-	        ),
-                array(
-	                "plugin" => "NZBIndex"
-                ),
-                array(
-	                "plugin" => "NZBClub"
-                ),
-        ),
-
-	/*
+	/**
 	 * Global Server Menu configuration.
 	 */
 
 	'app' => array(
-		'password' => 'd51asdfergfa34fghfghf23rebh5h65ks5',
-		'private_ranges' => array('10.0.0.0/16'),
-		'navigation_links' => array(
-			'ThePirateBay' => 'http://thepiratebay.org',
-			'EZTV' => 'http://eztv.it',
-			'NYT' => 'http://nytimes.com',
+
+		// MD5 sum of your a password of your choosing.
+		'password'            => '',
+
+		// Private ranges (will post either WAN or LAN accessible links)
+		'private_ranges'      => array('10.0.0.0/16', '127.0.0.0/16', '::1'),
+
+		// Add custom navigation links on the page
+		'navigation_links'    => array(
+			'Github Repo'     => 'http://github.com/fredsted/ServerMenu',
+			'IMDB'            => 'http://imdb.com',
 		)
-	)
+	),
+
+	/**
+	 * Add a service to your Server Menu by adding it to the
+	 * 'services' array below. Look inside the service for the needed
+	 * configuration variables. Here's some examples:
+	 */
+
+	'services' => array(
+
+		// SABnzbd+ Newsgroup client.
+		/* array(
+			'plugin'         => 'Sabnzbd',
+			'title'          => 'SABnzbd+',
+			'url'            => "http://server.local:8080/sabnzbd",
+			'api_key'        => 'd51cafcf17264b2fa341a6b596076f95',
+			'public_address' => 'http://home.dyndns.com/sabnzbd',
+		), */
+
+		// Transmission torrent client.
+		/* array(
+			'plugin'         => 'Transmission',
+			'title'          => 'Transmission',
+			'hostname'       => 'server.local',
+			'port'           => '9091',
+			'username'       => 'transmission',
+			'password'       => 'password',
+			'/* public_address' => 'http://home.dyndns.com/transmission',
+		), */
+
+		// Checks whether SickBeard is up.
+		/* array(
+			'title'          => 'SickBeard',
+			'plugin'         => 'HTTP',
+			'hostname'       => 'server.local',
+			'port'           => '8081',
+			'public_address' => 'http://home.dyndns.com/sickbeard',
+		),*/
+
+		// Checks whether Webmin is up.
+		/* array(
+			'title'          => 'Webmin',
+			'plugin'         => 'HTTP',
+			'hostname'       => 'server.local',
+			'port'           => '10000',
+			'public_address' => 'https://home.dyndns.com:10000'
+		)  */
+
+	),
+
+
+	/**
+	 * Add RSS feeds below. No configuration neccessary, just drop
+	 * them inside the Feeds folder and add them here.
+	 */
+
+	'feeds' => array(
+
+		// TV RSS Feed
+		/* array(
+			'plugin' => 'EZTV',
+		), */
+
+		// Scene blog RSS feed
+		/* array(
+			'plugin' => 'ReleaseLog',
+		) */
+	),
+
+
+	/**
+	 * Add search providers below. No configuration neccessary, just drop
+	 * them inside the SearchProviders folder and add them here.
+	 */
+
+	'searchEngines' => array(
+
+		// Torrent search engine
+		/* array(
+			"plugin" => "ThePirateBay"
+		), */
+
+		// NZB search engine (no authentication)
+		/* array(
+			"plugin" => "NZBIndex"
+		), */
+
+		// NZB search engine (no authentication)
+		/* array(
+			"plugin" => "NZBClub"
+		), */
+	),
 );
