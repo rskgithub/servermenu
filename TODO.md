@@ -6,7 +6,6 @@
 
 - dark theme
 
-
 ### Maybe
 
 - graphical configuration interface
