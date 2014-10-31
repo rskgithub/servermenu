@@ -73,7 +73,9 @@ class Sabnzbd extends \ServerMenu\Service
 	 */
 	public function receiveContent($receiverType, $content)
 	{
-		// TODO: Implement receiveContent() method.
+		$apiUrl = "{$this->config['url']}/api?mode=addurl&name={$content}&apikey={$this->config['api_key']}";
+
+		file_get_contents($apiUrl);
 	}
 
 
