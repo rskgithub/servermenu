@@ -5,7 +5,6 @@
 ### Definitive
 
 - dark theme
-- password protection
 
 
 ### Maybe

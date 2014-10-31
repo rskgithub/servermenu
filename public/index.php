@@ -9,6 +9,10 @@ $app = new \Slim\Slim(array(
 	'templates.path' => '../templates',
 ));
 
+// Start session
+session_cache_limiter(false);
+session_start();
+
 // Prepare view
 $app->view(new \Slim\Views\Twig());
 $app->view->parserOptions = array(
@@ -30,6 +34,16 @@ $config = include('../app/config.php');
 $app->config('s', $config);
 
 /*
+ * Authentication
+ */
+
+$app->hook('slim.before', function() use ($app) {
+	if (!isset($_SESSION['login'])
+		&& $app->request->getResourceUri() != '/login')
+		$app->redirect('/login');
+});
+
+/*
  * Views/Pages
  */
 
@@ -40,6 +54,19 @@ $app->get('/', function () use ($app, $config) {
 	);
 
 	$app->render('index.html.twig', $template_variables);
+});
+
+$app->get('/login', function() use ($app, $config) {
+	$app->render('login.html.twig');
+});
+
+$app->post('/login', function () use ($app, $config) {
+	if (isset($_POST['password'])) {
+		if (md5($_POST['password']) === $config['app']['password']) {
+			$_SESSION['login'] = true;
+		}
+	}
+	$app->redirect('/');
 });
 
 
