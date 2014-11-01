@@ -31,7 +31,7 @@ Installation
 
 1) Unzip or clone into a folder
 
-2) Run `composer update` and `npm install` in root to download necessary components
+2) Run `composer update`, `npm install`, `grunt dist` in root to download necessary components
 
 3) Copy `app/config.php.sample` to `app/config.php` and configure to enable services/feeds/search engines of your choice
 
@@ -55,7 +55,7 @@ Services extend the `Service` class and are used for the applications that resid
 
 **SearchEngines**
 
-SearchEngines extend the `SearchEngine`class and deliver an array with search results which the application will format. 
+SearchEngines extend the `SearchEngine` class and deliver an array with search results which the application will format. 
 
 Each search result has an 'action' that allows the application to send a link or search result to a Service. In the action array, the type of plugin (usually `service`) is specified, along with the receiverType, which are defined by services themselves (there has to be a plugin with a matching receiverType available). Then there's the content parameter which is the link or other string to be sent to the service. Finally there's the title and glyphicon parameters which are shown to the user in the UI in the form of the `Actions` button beside each search result.
 
