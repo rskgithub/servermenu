@@ -15,36 +15,41 @@ class PluginLoader {
 
         private static $plugins, $receivers;
 
-        /**
-         * Fetch a certain plugin (Service, SearchEngine or Feed)
-         *
-         * @param string $pluginType
-         * @param int $pluginId
-         *
-         * @return Object
-         * @throws \Exception
-         */
-        public static function fetch($pluginType, $pluginId) {
-                if (!isset(self::$plugins)) {
-                        self::$plugins = array();
-                } elseif (isset(self::$plugins[$pluginType][$pluginId])) {
-                        return self::$plugins[$pluginType][$pluginId];
-                }
+	/**
+	 * Fetch a certain plugin (Service, SearchEngine or Feed)
+	 *
+	 * @param string $pluginType
+	 * @param int $pluginId
+	 *
+	 * @return Object
+	 * @throws \Exception
+	 */
+	public static function fetch($pluginType, $pluginId)
+	{
+		if (!isset(self::$plugins)) {
+			self::$plugins = array();
+		} elseif (isset(self::$plugins[$pluginType][$pluginId])) {
+			return self::$plugins[$pluginType][$pluginId];
+		}
 
-                $config = Slim::getInstance()->config('s')[$pluginType.'s'][$pluginId];
-                $name = $config['plugin'];
-                $class = ucfirst($name);
+		$config = Slim::getInstance()->config('s');
+		$pluginConfig = $config[$pluginType . 's'][$pluginId];
+		$name = $pluginConfig['plugin'];
+		$pluginTypeClass = ucfirst($pluginType);
+		$pluginClass = ucfirst($name);
 
-                if (file_exists(__DIR__.'/'.$pluginType.'s/'.$class.'/'.$class.'.php')) {
-                        $className = "\\ServerMenu\\{$pluginType}s\\$class\\$class";
+		$file = __DIR__ . '/' . $pluginTypeClass . 's/' . $pluginClass . '/' . $pluginClass . '.php';
 
-                        self::$plugins[$pluginType][$pluginId] = new $className($config, $pluginId);
-                        return self::$plugins[$pluginType][$pluginId];
-                } else {
-                        throw new \Exception('Plugin not found');
-                }
+		if (file_exists($file)) {
+			$className = "\\ServerMenu\\{$pluginTypeClass}s\\$pluginClass\\$pluginClass";
 
-        }
+			self::$plugins[$pluginType][$pluginId] = new $className($pluginConfig, $pluginId);
+			return self::$plugins[$pluginType][$pluginId];
+		} else {
+			throw new \Exception('Plugin not found: ' . $file);
+		}
+
+	}
 
 	/**
 	 * Returns plugins (currently only Services) that can receive
