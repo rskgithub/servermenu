@@ -55,7 +55,7 @@ class ThePirateBay extends SearchEngine {
 			$results[] = array(
 				'title' => $matches['title'],
 				'link' => $details->children[1]->attr['href'],
-				'subtitle' => "seeds: {$row->find("td",2)->plaintext}, leeches: {$row->find("td",2)->plaintext}",
+				'subtitle' => "seeds: {$row->find("td",2)->plaintext}, leeches: {$row->find("td",3)->plaintext}",
 				'size' => $matches['size'],
 				'date' => $matches['date'],
 				'actions' => array(
