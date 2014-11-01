@@ -37,7 +37,7 @@ class EZTV extends Feed {
 
                         $results[] = array(
                                 "title" => $title,
-                                "subtitle" => $subtitle,
+                                "subtitle" => (isset($subtitle) ? $subtitle : ''),
                                 "size" => false,
                                 "link" => $item->get_link(),
                                 "date" => false,
