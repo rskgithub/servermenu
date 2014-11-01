@@ -61,8 +61,7 @@ class Transmission extends Service {
 
                 if (@count($downloads->arguments->torrents) > 0) {
                         foreach ($downloads->arguments->torrents as $download) {
-
-                                if ($download->status == TransmissionRPC::TR_STATUS_DOWNLOAD) {
+	                        if (isset($download->status) && $download->status == TransmissionRPC::TR_STATUS_DOWNLOAD) {
                                         $this->status = Service::STATUS_DOWNLOADING;
                                         $this->remaining++;
                                         if (isset($download->rateDownload)) {
