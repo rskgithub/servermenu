@@ -29,7 +29,7 @@ return array(
 		'navigation_links'    => array(
 			'Github Repo'     => 'http://github.com/fredsted/ServerMenu',
 			'IMDB'            => 'http://imdb.com',
-		)
+		),
 
 		// Private ranges (for WAN or LAN accessible links, if your services are available from the Internet)
 		'private_ranges'      => array('10.0.0.0/8', '192.168.0.0/16', '172.16.0.0/12', '127.0.0.0/8', '::1'),

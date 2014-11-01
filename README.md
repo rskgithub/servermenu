@@ -28,7 +28,7 @@ Installation
 
 1) Unzip or clone into a folder
 
-2) Configure `/app/config.php` to enable services/feeds/search engines of your choice
+2) Copy `app/config.php.sample` to `/app/config.php` and configure to enable services/feeds/search engines of your choice
 
 3) Run `composer update` in root to download necessary components
 
