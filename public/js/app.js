@@ -46,7 +46,6 @@ jQuery(document).ready(function ($) {
         var button = this;
 
         $(this).siblings('ul.dropdown-menu').children('.sendertype').each(function(){
-            console.log($(this).data('plugintype'));
             var current = this;
 
             $.getJSON(
@@ -80,7 +79,6 @@ jQuery(document).ready(function ($) {
                                         .data("receivertype", $(current).data('receivertype'))
                                         .data("pluginid", pluginData.pluginId)
                                         .data("content", $(current).data('content'))
-                                        .data("test", "test")
                                         .attr("href", "#")
                                         .html(pluginData.plugin)
                                 )
@@ -98,16 +96,14 @@ jQuery(document).ready(function ($) {
             $("#searchEngine").val($(this).data('pluginid'));
             $("#search").click();
         } else {
+            // Instantly show service as loading
             if ($(this).data('plugintype') == 'service') {
                 $("#service-"+$(this).data('pluginid')).loading();
             }
-            $.post(
-                "/api/send/" + $(this).data('plugintype') + "/" + $(this).data('pluginid'),
-                {
-                    'content': $(this).data('content'),
-                    'receivertype': $(this).data('receivertype')
-                }
-            );
+            $.post("/api/send/" + $(this).data('plugintype') + "/" + $(this).data('pluginid'), {
+                'content': $(this).data('content'),
+                'receivertype': $(this).data('receivertype')
+            });
         }
     });
 

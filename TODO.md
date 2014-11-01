@@ -4,7 +4,6 @@
 
 ### Definitive
 
-- dark theme
 
 ### Maybe
 
