@@ -13,3 +13,4 @@ composer.lock
 .idea/workspace.xml
 .idea/tasks.xml
 /app/config.php
+/servermenu-*
