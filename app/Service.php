@@ -163,7 +163,7 @@ abstract class Service
                         'config'     => $this->config,
                         'remaining'  => $this->getRemaining(),
                         'eta'        => Utility::time2relative($this->getEta()),
-                        'speed'      => Utility::bytes2human($this->getSpeed()),
+                        'speed'      => Utility::bytes2human($this->getSpeed(), 1),
                         'status'     => $this->getStatusString(),
                         'statuscode' => $this->getStatusCode(),
                         'link'       => (($this->getRequestType() == self::REQUEST_WAN) ? $this->getWanLink() : $this->getLanLink()),
