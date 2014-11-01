@@ -21,6 +21,9 @@ Requirements
 * Apache
 * PHP 5.4+
 * Composer (see http://getcomposer.org)
+* node.js
+
+A distribution that doesn't depend on composer and node/npm is coming soon.
 
 
 Installation
@@ -28,9 +31,9 @@ Installation
 
 1) Unzip or clone into a folder
 
-2) Copy `app/config.php.sample` to `/app/config.php` and configure to enable services/feeds/search engines of your choice
+2) Run `composer update` and `npm install` in root to download necessary components
 
-3) Run `composer update` in root to download necessary components
+3) Copy `app/config.php.sample` to `app/config.php` and configure to enable services/feeds/search engines of your choice
 
 4) Setup virtual host pointing to `/public`
 
