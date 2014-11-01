@@ -61,7 +61,7 @@ return array(
 			'port'           => '9091',
 			'username'       => 'transmission',
 			'password'       => 'password',
-			'/* public_address' => 'http://home.dyndns.com/transmission',
+			'public_address' => 'http://home.dyndns.com/transmission',
 		), */
 
 		// Checks whether SickBeard is up.
