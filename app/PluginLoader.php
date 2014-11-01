@@ -77,7 +77,7 @@ class PluginLoader {
                 foreach ($config as $pluginId => $pluginConfig) {
                         $name = $pluginConfig['plugin'];
 
-                        if (file_exists(__DIR__.'/'.$pluginType.'/'.$name.'/'.$name.'.php')) {
+                        if (file_exists(__DIR__.'/'.$pluginClass.'/'.$name.'/'.$name.'.php')) {
                                 $className = "\\ServerMenu\\$pluginClass\\$name\\$name";
 
 	                        /* @var $classInstance Receiver */
