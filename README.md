@@ -29,6 +29,12 @@ A distribution that doesn't depend on composer and node/npm is coming soon.
 Installation
 ------------
 
+### Use a Release
+
+If you don't care to install dependencies, you can use a [prepackaged release](https://github.com/fredsted/servermenu/releases), but you may miss out on the latest changes.
+
+### Development setup
+
 1) Unzip or clone into a folder
 
 2) Run `composer update`, `npm install`, `grunt dist` in root to download necessary components
