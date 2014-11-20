@@ -37,6 +37,8 @@ abstract class Service
 	 */
 	protected $serviceId;
 
+	protected $template = 'service.html.twig';
+
 
 	/**
 	 * Called when application wants fresh data. Use this method
