@@ -28,7 +28,8 @@
 
     {% if (statuscode != offline and statuscode != unknown) %}
         <p>
-            <a class="btn btn-sm btn-default openModal" href="{{ link }}">
+            <a class="btn btn-sm btn-default openModal"
+               data-toggle="modal" data-target="#basicModal" href="{{ link }}">
                 Open
             </a>
         </p>

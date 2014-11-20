@@ -103,7 +103,7 @@ $app->get('/api/receivers/:pluginType/:receiverType', 'apiRequest',
 
 $app->post('/api/send/:pluginType/:pluginId', 'apiRequest',
 	function ($pluginType, $pluginId) use ($app, $config) {
-		if (!$plugin = \ServerMenu\PluginLoader::fetch($pluginType, $pluginId))
+		if (!$plugin = \ServerMenu\PluginLoader::getPlugin($pluginType, $pluginId))
 			return $app->notFound();
 
 		$result = $plugin->receive($_POST['receivertype'], $_POST['content']);
@@ -115,7 +115,7 @@ $app->post('/api/send/:pluginType/:pluginId', 'apiRequest',
 $app->get('/api/search/:pluginId/:amount/:beginAt/:searchQuery', 'apiRequest',
 	function ($pluginId, $amount, $beginAt, $searchQuery) use ($app, $config) {
 		/* @var $plugin \ServerMenu\SearchEngine */
-		if (!$plugin = \ServerMenu\PluginLoader::fetch('searchEngine', $pluginId))
+		if (!$plugin = \ServerMenu\PluginLoader::getPlugin('searchEngine', $pluginId))
 			return $app->notFound();
 
 		$result = $plugin->getTemplateData($searchQuery, $amount, $beginAt);
@@ -130,14 +130,7 @@ $app->get('/api/search/:pluginId/:amount/:beginAt/:searchQuery', 'apiRequest',
 
 // Get Specific Service
 $app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) use ($app, $config) {
-	//sleep(rand(1, 2));
-
-	if (!isset($config[$serviceType . 's'][$serviceId])) {
-		$app->notFound();
-		return;
-	}
-
-	$service = \ServerMenu\PluginLoader::fetch($serviceType, $serviceId);
+	$service = \ServerMenu\PluginLoader::getPlugin($serviceType, $serviceId);
 
 	if ($service instanceof \ServerMenu\Service)
 		$service->fetchData();
@@ -148,7 +141,7 @@ $app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) u
 
 // Get search
 $app->get('/ajax/search/:pluginId/:query', function ($pluginId, $query) use ($app, $config) {
-	if (!$plugin = \ServerMenu\PluginLoader::fetch('searchEngine', $pluginId))
+	if (!$plugin = \ServerMenu\PluginLoader::getPlugin('searchEngine', $pluginId))
 		$app->notFound();
 
 	// Render Service HTML

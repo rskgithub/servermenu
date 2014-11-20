@@ -24,7 +24,7 @@ class PluginLoader {
 	 * @return Object
 	 * @throws \Exception
 	 */
-	public static function fetch($pluginType, $pluginId)
+	public static function getPlugin($pluginType, $pluginId)
 	{
 		if (!isset(self::$plugins)) {
 			self::$plugins = array();
@@ -33,17 +33,14 @@ class PluginLoader {
 		}
 
 		$config = Slim::getInstance()->config('s');
-		$pluginConfig = $config[$pluginType . 's'][$pluginId];
-		$name = $pluginConfig['plugin'];
-		$pluginTypeClass = ucfirst($pluginType);
-		$pluginClass = ucfirst($name);
+		$pluginConfig = $config[$pluginType][$pluginId];
+		$plugin = $pluginConfig['plugin'];
 
-		$file = __DIR__ . '/' . $pluginTypeClass . 's/' . $pluginClass . '/' . $pluginClass . '.php';
+		$file = __DIR__ . '/' . $pluginType . '/' . $plugin . '/' . $plugin . '.php';
+		$class = "\\ServerMenu\\$pluginType\\$plugin\\$plugin";
 
-		if (file_exists($file)) {
-			$className = "\\ServerMenu\\{$pluginTypeClass}s\\$pluginClass\\$pluginClass";
-
-			self::$plugins[$pluginType][$pluginId] = new $className($pluginConfig, $pluginId);
+		if (file_exists($file) && class_exists($class)) {
+			self::$plugins[$pluginType][$pluginId] = new $class($pluginConfig, $pluginId);
 			return self::$plugins[$pluginType][$pluginId];
 		} else {
 			throw new \Exception('Plugin not found: ' . $file);
@@ -52,8 +49,7 @@ class PluginLoader {
 	}
 
 	/**
-	 * Returns plugins (currently only Services) that can receive
-	 * certain "receiverTypes".
+	 * Returns plugins that can receive certain "receiverTypes".
 	 *
 	 * @param string $pluginType
 	 * @param int $receiverType
@@ -68,20 +64,16 @@ class PluginLoader {
                                 return self::$receivers[$pluginType][$receiverType];
                 }
 
-                $pluginType = $pluginType.'s';
-                $pluginClass = ucfirst($pluginType);
-
-                $config = Slim::getInstance()->config('s');
-                $config = $config[$pluginType];
+                $config = Slim::getInstance()->config('s')[$pluginType];
 
                 foreach ($config as $pluginId => $pluginConfig) {
-                        $name = $pluginConfig['plugin'];
+                        $plugin = $pluginConfig['plugin'];
+	                $file = __DIR__ . '/' . $pluginType . '/' . $plugin . '/' . $plugin . '.php';
+	                $class = "\\ServerMenu\\$pluginType\\$plugin\\$plugin";
 
-                        if (file_exists(__DIR__.'/'.$pluginClass.'/'.$name.'/'.$name.'.php')) {
-                                $className = "\\ServerMenu\\$pluginClass\\$name\\$name";
-
+                        if (file_exists($file) && class_exists($class)) {
 	                        /* @var $classInstance Receiver */
-                                $classInstance = new $className($pluginConfig, $pluginId);
+                                $classInstance = new $class($pluginConfig, $pluginId);
 
 	                        if (!in_array('ServerMenu\Receiver', class_uses($classInstance)))
 		                        continue;
@@ -91,12 +83,12 @@ class PluginLoader {
 
                                 self::$receivers[$pluginType][$receiverType][] = array(
                                         'pluginId' => $pluginId,
-                                        'plugin'   => $name
+                                        'plugin'   => $plugin
                                 );
                         }
                 }
 
-                return array("plugins"=>self::$receivers[$pluginType][$receiverType]);
+		return array("plugins" => self::$receivers[$pluginType][$receiverType]);
         }
 
 } 
