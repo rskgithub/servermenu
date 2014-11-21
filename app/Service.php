@@ -28,7 +28,7 @@ abstract class Service
 	 *
 	 * @var
 	 */
-	protected $config;
+	public $config;
 
 	/**
 	 * Will be populated with the Service ID.

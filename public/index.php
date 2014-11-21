@@ -50,7 +50,9 @@ $app->hook('slim.before', function() use ($app) {
 // Front page
 $app->get('/', function () use ($app, $config) {
 	$template_variables = array(
-		'config' => $config
+		'Services' => \ServerMenu\PluginLoader::getPlugins('Services'),
+		'SearchEngines' => \ServerMenu\PluginLoader::getPlugins('SearchEngines'),
+		'Feeds' => \ServerMenu\PluginLoader::getPlugins('Feeds'),
 	);
 
 	$app->render('index.html.twig', $template_variables);
