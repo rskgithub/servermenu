@@ -16,6 +16,28 @@ class PluginLoader {
         private static $plugins, $receivers;
 
 	/**
+	 * Get plugins if a specific type
+	 * @param string pluginType
+	 *
+	 * @return Array
+	 */
+	public static function getPlugins($pluginType)
+	{
+		$config = Slim::getInstance()->config('s');
+
+		foreach ($config[$pluginType] as $pluginId => $pluginConfig) {
+			$class = "\\ServerMenu\\$pluginType\\{$pluginConfig['plugin']}\\{$pluginConfig['plugin']}";
+
+			if (class_exists($class))
+				self::$plugins[$pluginType][$pluginId] = new $class($pluginConfig, $pluginId);
+
+		}
+
+		return self::$plugins[$pluginType];
+
+	}
+
+	/**
 	 * Fetch a certain plugin (Service, SearchEngine or Feed)
 	 *
 	 * @param string $pluginType
