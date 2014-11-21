@@ -36,14 +36,13 @@ class PluginLoader {
 		$pluginConfig = $config[$pluginType][$pluginId];
 		$plugin = $pluginConfig['plugin'];
 
-		$file = __DIR__ . '/' . $pluginType . '/' . $plugin . '/' . $plugin . '.php';
 		$class = "\\ServerMenu\\$pluginType\\$plugin\\$plugin";
 
-		if (file_exists($file) && class_exists($class)) {
+		if (class_exists($class)) {
 			self::$plugins[$pluginType][$pluginId] = new $class($pluginConfig, $pluginId);
 			return self::$plugins[$pluginType][$pluginId];
 		} else {
-			throw new \Exception('Plugin not found: ' . $file);
+			throw new \Exception('Plugin not found: ' . $pluginType . ' ID ' . $pluginId);
 		}
 
 	}
@@ -68,10 +67,10 @@ class PluginLoader {
 
                 foreach ($config as $pluginId => $pluginConfig) {
                         $plugin = $pluginConfig['plugin'];
-	                $file = __DIR__ . '/' . $pluginType . '/' . $plugin . '/' . $plugin . '.php';
+
 	                $class = "\\ServerMenu\\$pluginType\\$plugin\\$plugin";
 
-                        if (file_exists($file) && class_exists($class)) {
+                        if (class_exists($class)) {
 	                        /* @var $classInstance Receiver */
                                 $classInstance = new $class($pluginConfig, $pluginId);
 
