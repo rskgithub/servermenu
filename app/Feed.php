@@ -13,6 +13,8 @@ abstract class Feed extends PluginBase {
 
         const DEFAULT_AMOUNT = 30;
 
+	public $template = 'feed.html.twig';
+
 	/**
 	 * Return array with feed contents and Service senders
 	 *

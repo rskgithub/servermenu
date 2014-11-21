@@ -1,0 +1,36 @@
+{% set offline = constant('\\ServerMenu\\Service::STATUS_OFFLINE')  %}
+{% set downloading = constant('\\ServerMenu\\Service::STATUS_DOWNLOADING') %}
+{% set unknown = constant('\\ServerMenu\\Service::STATUS_UNKNOWN') %}
+{% set paused = constant('\\ServerMenu\\Service::STATUS_PAUSED') %}
+
+    <h5>
+        {{ config.title }}
+
+        {% if (statuscode == downloading or statuscode == paused) %}
+            <span class="label label-default">{{ remaining }}</span>
+        {% elseif statuscode == offline %}
+            <p class="text-danger">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                The server is down.
+            </p>
+        {% elseif statuscode == unknown %}
+            <span class="glyphicon glyphicon-question-sign ttip"
+                  data-toggle="tooltip" title="Loading"></span>
+        {% else %}
+            <span class="glyphicon glyphicon-ok ttip" data-toggle="tooltip"
+                  title="{{ status }}"></span>
+        {% endif %}
+    </h5>
+
+    {% if (statuscode == downloading or statuscode == paused) %}
+        <p class="small">{{ eta }} left at {{ speed }}</p>
+    {% endif %}
+
+    {% if (statuscode != offline and statuscode != unknown) %}
+        <p>
+            <a class="btn btn-sm btn-default openModal"
+               data-toggle="modal" data-target="#basicModal" href="{{ link }}">
+                Open
+            </a>
+        </p>
+    {% endif %}

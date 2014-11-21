@@ -138,7 +138,7 @@ $app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) u
 		$service->fetchData();
 
 	// Render Service HTML
-	$app->render($serviceType . '.html.twig', $service->getTemplateData(), 200);
+	$app->render($service->template, $service->getTemplateData(), 200);
 });
 
 // Get search
@@ -147,7 +147,7 @@ $app->get('/ajax/search/:pluginId/:query', function ($pluginId, $query) use ($ap
 		$app->notFound();
 
 	// Render Service HTML
-	$app->render('feed.html.twig', $plugin->getTemplateData($query), 200);
+	$app->render($plugin->template, $plugin->getTemplateData($query), 200);
 });
 
 
