@@ -34,9 +34,7 @@ class PluginLoader {
 
 		$config = Slim::getInstance()->config('s');
 		$pluginConfig = $config[$pluginType][$pluginId];
-		$plugin = $pluginConfig['plugin'];
-
-		$class = "\\ServerMenu\\$pluginType\\$plugin\\$plugin";
+		$class = "\\ServerMenu\\$pluginType\\{$pluginConfig['plugin']}\\{$pluginConfig['plugin']}";
 
 		if (class_exists($class)) {
 			self::$plugins[$pluginType][$pluginId] = new $class($pluginConfig, $pluginId);
@@ -66,9 +64,7 @@ class PluginLoader {
                 $config = Slim::getInstance()->config('s')[$pluginType];
 
                 foreach ($config as $pluginId => $pluginConfig) {
-                        $plugin = $pluginConfig['plugin'];
-
-	                $class = "\\ServerMenu\\$pluginType\\$plugin\\$plugin";
+	                $class = "\\ServerMenu\\$pluginType\\{$pluginConfig['plugin']}\\{$pluginConfig['plugin']}";
 
                         if (class_exists($class)) {
 	                        /* @var $classInstance Receiver */
@@ -82,7 +78,7 @@ class PluginLoader {
 
                                 self::$receivers[$pluginType][$receiverType][] = array(
                                         'pluginId' => $pluginId,
-                                        'plugin'   => $plugin
+                                        'plugin'   => $pluginConfig['plugin']
                                 );
                         }
                 }
