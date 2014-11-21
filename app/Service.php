@@ -3,7 +3,7 @@ namespace ServerMenu;
 
 use Slim\Slim;
 
-abstract class Service
+abstract class Service extends PluginBase
 {
 
         const STATUS_OFFLINE = 0;
@@ -22,20 +22,6 @@ abstract class Service
 	 * @var
 	 */
 	protected abstract function getRequiredConfig();
-
-	/**
-	 * Will be populated with user configuration of the Service.
-	 *
-	 * @var
-	 */
-	public $config;
-
-	/**
-	 * Will be populated with the Service ID.
-	 *
-	 * @var
-	 */
-	protected $serviceId;
 
 	protected $template = 'service.html.twig';
 
@@ -105,8 +91,7 @@ abstract class Service
                                 throw new \Exception("Config variable missing: $configVar");
                         }
                 }
-                $this->config = $config;
-                $this->serviceId = $serviceId;
+		parent::__construct($config, $serviceId);
         }
 
         /**

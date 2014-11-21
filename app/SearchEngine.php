@@ -9,7 +9,7 @@
 namespace ServerMenu;
 
 
-abstract class SearchEngine {
+abstract class SearchEngine extends PluginBase {
 
 	const DEFAULT_AMOUNT = 30;
 

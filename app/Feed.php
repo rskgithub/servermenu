@@ -9,7 +9,7 @@
 namespace ServerMenu;
 
 
-abstract class Feed {
+abstract class Feed extends PluginBase {
 
         const DEFAULT_AMOUNT = 30;
 
