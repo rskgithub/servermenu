@@ -14,3 +14,4 @@ composer.lock
 .idea/tasks.xml
 /app/config.php
 /servermenu-*
+/app/cache/
