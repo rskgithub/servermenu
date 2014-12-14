@@ -43,14 +43,14 @@ class EZTV extends Feed {
                                 "date" => false,
                                 "actions" => array(
                                         array(
-                                                "pluginType" => "service",
+                                                "pluginType" => "Services",
                                                 "receiverType" => 'magnet',
                                                 "content" => $magnet,
                                                 "glyphicon" => "download",
                                                 "title" => "Download"
                                         ),
                                         array(
-                                                "pluginType" => "searchEngine",
+                                                "pluginType" => "SearchEngines",
                                                 "receiverType" => 'search',
                                                 "content" => $title,
                                                 "glyphicon" => "search",

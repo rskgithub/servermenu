@@ -50,7 +50,7 @@ class ReleaseLog extends Feed {
 				"date" => $item->get_date(),
 				"actions" => array(
 					array(
-						"pluginType" => "searchEngine",
+						"pluginType" => "SearchEngines",
 						"receiverType" => 'search',
 						"content" => $item->get_title(),
 						"glyphicon" => "search",

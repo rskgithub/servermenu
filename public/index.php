@@ -117,7 +117,7 @@ $app->post('/api/send/:pluginType/:pluginId', 'apiRequest',
 $app->get('/api/search/:pluginId/:amount/:beginAt/:searchQuery', 'apiRequest',
 	function ($pluginId, $amount, $beginAt, $searchQuery) use ($app, $config) {
 		/* @var $plugin \ServerMenu\SearchEngine */
-		if (!$plugin = \ServerMenu\PluginLoader::getPlugin('searchEngine', $pluginId))
+		if (!$plugin = \ServerMenu\PluginLoader::getPlugin('SearchEngines', $pluginId))
 			return $app->notFound();
 
 		$result = $plugin->getTemplateData($searchQuery, $amount, $beginAt);
@@ -143,7 +143,7 @@ $app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) u
 
 // Get search
 $app->get('/ajax/search/:pluginId/:query', function ($pluginId, $query) use ($app, $config) {
-	if (!$plugin = \ServerMenu\PluginLoader::getPlugin('searchEngine', $pluginId))
+	if (!$plugin = \ServerMenu\PluginLoader::getPlugin('SearchEngines', $pluginId))
 		$app->notFound();
 
 	// Render Service HTML

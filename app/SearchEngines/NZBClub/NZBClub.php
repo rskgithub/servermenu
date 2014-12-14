@@ -48,7 +48,7 @@ class NZBClub extends SearchEngine {
 				"date" => $item->get_date(),
 				"actions" => array(
 					array(
-						"pluginType" => "service",
+						"pluginType" => "Services",
 						"receiverType" => 'nzb',
 						"content" => $item->get_enclosures()[0]->link,
 						"glyphicon" => "download",

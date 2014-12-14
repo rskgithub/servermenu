@@ -66,7 +66,7 @@ class NZBIndex extends SearchEngine {
 				"date" => $item->get_date(),
 				"actions" => array(
 					array(
-						"pluginType" => "service",
+						"pluginType" => "Services",
 						"receiverType" => 'nzb',
 						"content" => $item->get_link(),
 						"glyphicon" => "download",
