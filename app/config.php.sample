@@ -42,7 +42,7 @@ return array(
 	 * configuration variables. Here's some examples:
 	 */
 
-	'services' => array(
+	'Services' => array(
 
 		// SABnzbd+ Newsgroup client.
 		/* array(
@@ -90,7 +90,7 @@ return array(
 	 * them inside the Feeds folder and add them here.
 	 */
 
-	'feeds' => array(
+	'Feeds' => array(
 
 		// TV RSS Feed
 		/* array(
@@ -109,7 +109,7 @@ return array(
 	 * them inside the SearchProviders folder and add them here.
 	 */
 
-	'searchEngines' => array(
+	'SearchEngines' => array(
 
 		// Torrent search engine
 		/* array(
