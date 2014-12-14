@@ -14,6 +14,13 @@ abstract class SearchEngine extends PluginBase {
 	const DEFAULT_AMOUNT = 30;
 
 	/**
+	 * The twig template to use for the plugin
+	 *
+	 * @var string
+	 */
+	public $template = 'feed.html.twig';
+
+	/**
 	 * Return array with search results and Service senders.
 	 *
 	 * @param string $searchQuery

@@ -23,6 +23,11 @@ abstract class Service extends PluginBase
 	 */
 	protected abstract function getRequiredConfig();
 
+	/**
+	 * The twig template to use for the plugin
+	 *
+	 * @var string
+	 */
 	public $template = 'service.html.twig';
 
 
