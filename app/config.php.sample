@@ -94,6 +94,11 @@ return array(
 
 		// TV RSS Feed
 		/* array(
+			'plugin' => 'ShowRSS',
+		), */
+
+		// TV RSS Feed
+		/* array(
 			'plugin' => 'EZTV',
 		), */
 
