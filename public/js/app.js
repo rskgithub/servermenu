@@ -107,6 +107,15 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $("body").on('click', '.openModal', function(e) {
+        if(! /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            e.preventDefault();
+            $("#mdlTitle").html($(this).data('title'));
+            $("#modal iframe").attr('src', $(this).attr('href'));
+            $("#modal").modal('show');
+        }
+    });
+
     $("#search").click(function(){
         var url = "/ajax/search/" + $("#searchEngine").val() + "/" + encodeURIComponent($("#searchQuery").val());
         $("#searchResults").show().loading().load(url, function(){
