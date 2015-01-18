@@ -91,13 +91,13 @@ jQuery(document).ready(function ($) {
     });
 
     $("body").on('click', '.data-send', function () {
-        if ($(this).data('plugintype') == 'searchEngine') {
+        if ($(this).data('plugintype') == 'SearchEngines') {
             $("#searchQuery").val($(this).data('content'));
             $("#searchEngine").val($(this).data('pluginid'));
             $("#search").click();
         } else {
             // Instantly show service as loading
-            if ($(this).data('plugintype') == 'service') {
+            if ($(this).data('plugintype') == 'Services') {
                 $("#service-"+$(this).data('pluginid')).loading();
             }
             $.post("/api/send/" + $(this).data('plugintype') + "/" + $(this).data('pluginid'), {
