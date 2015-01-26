@@ -30,7 +30,9 @@ $app->view->parserExtensions = array(
 
 
 // Add configuration to application
-$config = include('../app/config.php');
+$configFile = '../app/config.php';
+if (!file_exists($configFile)) die("Config file \"$configFile\" not found");
+$config = include($configFile);
 $app->config('s', $config);
 
 /*
