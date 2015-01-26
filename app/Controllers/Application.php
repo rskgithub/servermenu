@@ -24,6 +24,11 @@ class Application extends Controller {
 	}
 
 	public function getLogin() {
+		if (md5($this->app->getCookie('login')) == $this->config['app']['password']) {
+			$_SESSION['login'] = true;
+			$this->app->redirect('/');
+		}
+
 		$this->app->render('login.html.twig');
 	}
 
@@ -31,6 +36,7 @@ class Application extends Controller {
 		if (isset($_POST['password'])) {
 			if (md5($_POST['password']) === $this->config['app']['password']) {
 				$_SESSION['login'] = true;
+				$this->app->setCookie('login', $_POST['password'], '30 days');
 			}
 		}
 		$this->app->redirect('/');

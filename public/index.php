@@ -7,6 +7,7 @@ ini_set( 'display_errors','1');
 // Prepare app
 $app = new \Slim\Slim(array(
 	'templates.path' => '../templates',
+	'cookies.encrypt' => true,
 ));
 
 // Start session
