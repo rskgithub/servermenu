@@ -52,6 +52,7 @@ $app->hook('slim.before', function() use ($app) {
 
 $app->get('/', '\ServerMenu\Controllers\Application:getIndex');
 $app->get('/login', '\ServerMenu\Controllers\Application:getLogin');
+$app->get('/logout', '\ServerMenu\Controllers\Application:getLogout');
 $app->post('/login', '\ServerMenu\Controllers\Application:postLogin');
 
 

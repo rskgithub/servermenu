@@ -32,6 +32,12 @@ class Application extends Controller {
 		$this->app->render('login.html.twig');
 	}
 
+	public function getLogout() {
+		session_unset();
+		$this->app->deleteCookie('login');
+		$this->app->redirect('/login');
+	}
+
 	public function postLogin() {
 		if (isset($_POST['password'])) {
 			if (md5($_POST['password']) === $this->config['app']['password']) {
