@@ -13,8 +13,11 @@ use Slim\Slim;
 
 class Controller {
 
+	protected $app, $config;
+
 	public function __construct($app = null) {
 		$this->app = ($app instanceof Slim) ? $app : Slim::getInstance();
+		$this->config = $this->app->config('s');
 		$this->init();
 	}
 

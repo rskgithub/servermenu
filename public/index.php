@@ -49,29 +49,9 @@ $app->hook('slim.before', function() use ($app) {
  * Views/Pages
  */
 
-// Front page
-$app->get('/', function () use ($app, $config) {
-	$template_variables = array(
-		'Services' => \ServerMenu\PluginLoader::getPlugins('Services'),
-		'SearchEngines' => \ServerMenu\PluginLoader::getPlugins('SearchEngines'),
-		'Feeds' => \ServerMenu\PluginLoader::getPlugins('Feeds'),
-	);
-
-	$app->render('index.html.twig', $template_variables);
-});
-
-$app->get('/login', function() use ($app, $config) {
-	$app->render('login.html.twig');
-});
-
-$app->post('/login', function () use ($app, $config) {
-	if (isset($_POST['password'])) {
-		if (md5($_POST['password']) === $config['app']['password']) {
-			$_SESSION['login'] = true;
-		}
-	}
-	$app->redirect('/');
-});
+$app->get('/', '\ServerMenu\Controllers\Application:getIndex');
+$app->get('/login', '\ServerMenu\Controllers\Application:getLogin');
+$app->post('/login', '\ServerMenu\Controllers\Application:postLogin');
 
 
 /*
@@ -79,78 +59,24 @@ $app->post('/login', function () use ($app, $config) {
  */
 
 // API middleware
-function apiRequest()
-{
+function apiRequest() {
 	$app = \Slim\Slim::getInstance();
 	$app->view(new \JsonApiView());
 	$app->add(new \JsonApiMiddleware());
 }
 
-// Get list of plugins
-$app->get('/api/:type', 'apiRequest', function ($type) use ($app, $config) {
-	if (empty($config[$type])) {
-		$app->notFound();
-		return;
-	}
-
-	$app->render(200, array(
-		$type => array_keys($config[$type]),
-	));
-});
-
-$app->get('/api/receivers/:pluginType/:receiverType', 'apiRequest',
-	function ($pluginType, $receiverType) use ($app, $config) {
-		$plugins = \ServerMenu\PluginLoader::getReceivers($pluginType, $receiverType);
-		$app->render(200, $plugins);
-	}
-);
-
-$app->post('/api/send/:pluginType/:pluginId', 'apiRequest',
-	function ($pluginType, $pluginId) use ($app, $config) {
-		if (!$plugin = \ServerMenu\PluginLoader::getPlugin($pluginType, $pluginId))
-			return $app->notFound();
-
-		$result = $plugin->receive($_POST['receivertype'], $_POST['content']);
-
-		$app->render(200, array('result' => $result));
-	}
-);
-
-$app->get('/api/search/:pluginId/:amount/:beginAt/:searchQuery', 'apiRequest',
-	function ($pluginId, $amount, $beginAt, $searchQuery) use ($app, $config) {
-		/* @var $plugin \ServerMenu\SearchEngine */
-		if (!$plugin = \ServerMenu\PluginLoader::getPlugin('SearchEngines', $pluginId))
-			return $app->notFound();
-
-		$result = $plugin->getTemplateData($searchQuery, $amount, $beginAt);
-
-		$app->render(200, array('result' => $result));
-	}
-);
+$app->get('/api/:type', 'apiRequest', '\ServerMenu\Controllers\Api:getListPlugins');
+$app->get('/api/receivers/:pluginType/:receiverType', 'apiRequest', '\ServerMenu\Controllers\Api:getListReceivers');
+$app->post('/api/send/:pluginType/:pluginId', 'apiRequest', '\ServerMenu\Controllers\Api:postSend');
+$app->get('/api/search/:pluginId/:amount/:beginAt/:searchQuery', 'apiRequest', '\ServerMenu\Controllers\Api:getSearch');
 
 /*
  * AJAX Actions
  */
 
 // Get Specific Service
-$app->get('/ajax/:serviceType/:serviceId', function ($serviceType, $serviceId) use ($app, $config) {
-	$service = \ServerMenu\PluginLoader::getPlugin($serviceType, $serviceId);
-
-	if ($service instanceof \ServerMenu\Service)
-		$service->fetchData();
-
-	// Render Service HTML
-	$app->render($service->template, $service->getTemplateData(), 200);
-});
-
-// Get search
-$app->get('/ajax/search/:pluginId/:query', function ($pluginId, $query) use ($app, $config) {
-	if (!$plugin = \ServerMenu\PluginLoader::getPlugin('SearchEngines', $pluginId))
-		$app->notFound();
-
-	// Render Service HTML
-	$app->render($plugin->template, $plugin->getTemplateData($query), 200);
-});
+$app->get('/ajax/:serviceType/:serviceId', '\ServerMenu\Controllers\Ajax:getService');
+$app->get('/ajax/search/:pluginId/:query', '\ServerMenu\Controllers\Ajax:getSearch');
 
 
 // Define 404 template

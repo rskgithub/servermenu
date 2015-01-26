@@ -9,6 +9,30 @@
 namespace ServerMenu\Controllers;
 
 
-class Application {
+use ServerMenu\Controller;
 
+class Application extends Controller {
+
+	public function getIndex() {
+		$template_variables = array(
+			'Services' => \ServerMenu\PluginLoader::getPlugins('Services'),
+			'SearchEngines' => \ServerMenu\PluginLoader::getPlugins('SearchEngines'),
+			'Feeds' => \ServerMenu\PluginLoader::getPlugins('Feeds'),
+		);
+
+		$this->app->render('index.html.twig', $template_variables);
+	}
+
+	public function getLogin() {
+		$this->app->render('login.html.twig');
+	}
+
+	public function postLogin() {
+		if (isset($_POST['password'])) {
+			if (md5($_POST['password']) === $this->config['app']['password']) {
+				$_SESSION['login'] = true;
+			}
+		}
+		$this->app->redirect('/');
+	}
 }
