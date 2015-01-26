@@ -15,3 +15,4 @@ composer.lock
 /app/config.php
 /servermenu-*
 /app/cache/
+/less/bootstrap
