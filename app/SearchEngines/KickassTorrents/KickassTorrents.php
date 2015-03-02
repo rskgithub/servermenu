@@ -35,7 +35,7 @@ class KickassTorrents extends SearchEngine {
 	 */
 	public function getTemplateData($searchQuery, $amount = self::DEFAULT_AMOUNT, $beginAt = 0)
 	{
-		$url = "https://kickass.so";
+		$url = "https://kickass.to";
 		$urlenc_term = urlencode($searchQuery);
 		$raw = file_get_contents("$url/usearch/$urlenc_term/");
 
