@@ -14,7 +14,7 @@ use ServerMenu\Controller;
 class Api extends Controller {
 
 	public function getListPlugins($type) {
-		if (empty($config[$type])) {
+		if (empty($config[$type]) || !isset($config[$type])) {
 			$this->app->notFound();
 			return;
 		}

@@ -1,4 +1,6 @@
 jQuery(document).ready(function ($) {
+	var stripHtmlRegex = /(<([^>]+)>)/ig;
+	
     jQuery.fn.extend({
         loading: function () {
             return this.each(function () {
@@ -92,7 +94,7 @@ jQuery(document).ready(function ($) {
 
     $("body").on('click', '.data-send', function () {
         if ($(this).data('plugintype') == 'SearchEngines') {
-            $("#searchQuery").val($(this).data('content'));
+            $("#searchQuery").val($(this).data('content').replace(stripHtmlRegex, ''));
             $("#searchEngine").val($(this).data('pluginid'));
             $("#search").click();
         } else {
@@ -105,6 +107,8 @@ jQuery(document).ready(function ($) {
                 'receivertype': $(this).data('receivertype')
             });
         }
+        $(this).closest('div.dropdown').removeClass('open');
+        return false;
     });
 
     $("body").on('click', '.openModal', function(e) {

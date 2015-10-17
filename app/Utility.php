@@ -142,11 +142,14 @@ class Utility
                         $diff = abs($diff);
                         $day_diff = floor($diff / 86400);
                         if ($day_diff == 0) {
+	                            if ($diff < 30) {
+                                        return '15 secs';
+                                }
                                 if ($diff < 60) {
                                         return '30 secs';
                                 }
                                 if ($diff < 120) {
-                                        return '1 mins';
+                                        return '1 min';
                                 }
                                 if ($diff < 3600) {
                                         return floor($diff / 60) . ' mins';

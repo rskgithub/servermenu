@@ -43,7 +43,11 @@
         {% for feedId, Feed in Feeds %}
             <li>
                 <a href="#feed-{{ feedId }}" data-toggle="tab" data-id="feed-{{ feedId }}">
-                    {{ Feed.config.plugin }}
+                	{% if Feed.config.title is defined %}
+	                    {{ Feed.config.title }}                	
+                	{% else %}
+	                    {{ Feed.config.plugin }}
+                    {% endif %}
                 </a>
             </li>
         {% endfor %}
