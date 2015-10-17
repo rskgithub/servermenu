@@ -21,16 +21,16 @@ class Transmission extends Service {
 		return array('plugin', 'title', 'hostname', 'port', 'username', 'password', 'public_address');
 	}
 
-        protected function getReceiverTypes()
-        {
-	        return array('magnet', 'torrent');
-        }
+     protected function getReceiverTypes()
+     {
+	     return array('magnet', 'torrent');
+     }
 
-        private $status, // Integer containing current status code
-                $remaining, // Number of items left in queue
-                $eta, // Time left until completion
-                $speed, // Current transfer speed
-                $upSpeed; // Upload speed
+     private $status, // Integer containing current status code
+             $remaining, // Number of items left in queue
+             $eta, // Time left until completion
+             $speed, // Current transfer speed
+             $upSpeed; // Upload speed
 
 	private function getConnection()
 	{
@@ -71,7 +71,7 @@ class Transmission extends Service {
                                                 $this->upSpeed += $download->rateUpload;
                                         }
                                         if (isset($download->eta) && ($download->eta > $this->eta)) {
-                                                $this->eta = $download->eta;
+                                                $this->eta = $download->eta + 1;
                                         }
                                 }
 
