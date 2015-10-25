@@ -18,14 +18,6 @@ class NZBIndex extends SearchEngine {
 	use Receiver;
 
 	/**
-	 * @return array
-	 */
-	protected function getReceiverTypes()
-	{
-		return array("search");
-	}
-
-	/**
 	 * Return array with search results and Service senders.
 	 *
 	 * @param string $searchQuery

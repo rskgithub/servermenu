@@ -11,6 +11,9 @@ namespace ServerMenu;
 
 abstract class SearchEngine extends PluginBase {
 
+	/**
+	 *
+	 */
 	const DEFAULT_AMOUNT = 30;
 
 	/**
@@ -19,6 +22,14 @@ abstract class SearchEngine extends PluginBase {
 	 * @var string
 	 */
 	public $template = 'feed.html.twig';
+
+	/**
+	 * @return array
+	 */
+	public function getReceiverTypes()
+	{
+		return array('search');
+	}
 
 	/**
 	 * Return array with search results and Service senders.

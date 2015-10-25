@@ -17,11 +17,6 @@ class NZBClub extends SearchEngine {
 
 	use Receiver;
 
-	protected function getReceiverTypes()
-	{
-		return array("search");
-	}
-
 	/**
 	 * Return array with search results and Service senders.
 	 *
