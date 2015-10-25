@@ -86,6 +86,8 @@ class Transmission extends Service {
 
 	public function receiveContent($receiverType, $content) {
 		$rpc = $this->getConnection();
+		if (strrpos($content, '//') === 0) $content = 'http:' . $content;
+		
 		$result = $rpc->add($content);
 
 		if ($result->result == 'success')
