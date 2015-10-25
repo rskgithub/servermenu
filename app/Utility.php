@@ -105,7 +105,7 @@ class Utility
 
                 $diff = time() - $timestamp;
                 if ($diff == 0) {
-                        return '0 secs';
+                        return 'unknown mins';
                 } elseif ($diff > 0) {
                         $day_diff = floor($diff / 86400);
                         if ($day_diff == 0) {
