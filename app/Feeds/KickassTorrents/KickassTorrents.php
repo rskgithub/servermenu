@@ -15,7 +15,7 @@ class KickassTorrents extends Feed {
 	 */
 	public function getTemplateData($amount = self::DEFAULT_AMOUNT)
 	{
-		if (isset($this->config['category']) && in_array())
+		if (isset($this->config['category']))
 			$category = $this->config['category'];
 		else {
 			// Default category
