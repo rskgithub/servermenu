@@ -22,7 +22,11 @@ class ReleaseLog extends Feed {
 	 */
 	public function getTemplateData($amount = self::DEFAULT_AMOUNT)
 	{
-		$pie = Utility::get_simplepie("http://www.rlslog.net/category/movies/bdrip/feed/");
+		if (isset($this->config['url']))
+			$pie = Utility::get_simplepie($this->config['url']);
+		else {
+			$pie = Utility::get_simplepie("http://www.rlslog.net/category/movies/bdrip/feed/");
+		}
 
 		$items = $pie->get_items(0, $amount);
 		$results = array();
