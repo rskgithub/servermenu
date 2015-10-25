@@ -18,6 +18,7 @@ class Application extends Controller {
 			'Services' => \ServerMenu\PluginLoader::getPlugins('Services'),
 			'SearchEngines' => \ServerMenu\PluginLoader::getPlugins('SearchEngines'),
 			'Feeds' => \ServerMenu\PluginLoader::getPlugins('Feeds'),
+			'config' => $this->config
 		);
 
 		$this->app->render('index.html.twig', $template_variables);
