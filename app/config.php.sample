@@ -130,5 +130,11 @@ return array(
 		/* array(
 			"plugin" => "NZBClub"
 		), */
+
+		// NZB search engine (API key is at https://www.oznzb.com/apihelp)
+		/* array(
+			'plugin' => 'OZNZB',
+			'api_key' => 'insert-api-key-here'
+		) */
 	),
 );
