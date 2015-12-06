@@ -23,7 +23,7 @@ class HTTP extends Service {
 
         public function fetchData()
         {
-                $url = "http://{$this->config['hostname']}:{$this->config['port']}";
+                $url = "{$this->config['protocol']}://{$this->config['hostname']}:{$this->config['port']}";
 
                 $headers = @get_headers($url);
 
