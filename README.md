@@ -12,7 +12,7 @@ A modular status page for your HTPC server that lets you control and see the sta
 Screenshot
 ----------
 
-![screenshot](http://mu.ms/f/pPJedb.png?cached)
+![servermenu-0 0 2](https://cloud.githubusercontent.com/assets/1552287/11635334/4cd3fc66-9d16-11e5-885d-c1a52912ee31.png)
 
 
 Requirements
