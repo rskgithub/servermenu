@@ -22,6 +22,9 @@ return array(
 		// MD5 sum of a password of your choosing (generate on http://www.md5.cz).
 		'password'            => '',
 
+		// Enter path of download directory to list latest downloads
+		'download_dir'        => '/Downloads',
+
 		// Use a bootswatch.com theme. Examples: darkly, cyborg, cosmo
 		'theme'               => 'default',
 
@@ -34,6 +37,12 @@ return array(
 		// Private ranges (for WAN or LAN accessible links, if your services are available from the Internet)
 		'private_ranges'      => array('10.0.0.0/8', '192.168.0.0/16', '172.16.0.0/12', '127.0.0.0/8', '::1'),
 
+        // Redis cache configuration. Set if you want to use Redis instead of file cache.
+        /* 'redis'               => [
+			'host' => '/tmp/redis.sock',
+			'port' => null,
+			'db'   => 3,
+		], */
 	),
 
 	/**
@@ -43,6 +52,14 @@ return array(
 	 */
 
 	'Services' => array(
+
+		// NZBGet Newsgroup client.
+		/* [
+			'plugin'         => 'NZBGet',
+			'url'            => 'http://controlUsername:controlPassword@127.0.0.1:6789'
+			// 'public_address' => '',
+			// 'title' => '',
+		], */
 
 		// SABnzbd+ Newsgroup client.
 		/* array(
@@ -137,5 +154,23 @@ return array(
 			'plugin' => 'OZNZB',
 			'api_key' => 'insert-api-key-here'
 		) */
+
+        // NZB search engine (API key is at https://www.drunkenslug.com/apihelp)
+        /* array(
+            'plugin' => 'DrunkenSlug',
+            'api_key' => 'insert-api-key-here'
+        ), */
+
+        // NZB search engine (API key is at https://www.abnzb.com/apihelp)
+        /* array(
+            'plugin' => 'ABNZB',
+            'api_key' => 'insert-api-key-here'
+        ), */
+
+        // NZB search engine (API key is at https://www.nzbnoob.com/apihelp)
+        /* array(
+            'plugin' => 'NZBNoob',
+            'api_key' => 'insert-api-key-here'
+        ), */
 	),
 );
