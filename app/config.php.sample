@@ -124,6 +124,19 @@ return array(
 		/* array(
 			'plugin' => 'ReleaseLog',
 		) */
+
+		// ThePirateBay Torrent Feeds
+		// Categories: all, audio, video, video_hd_movies, video_hd_tv, apps, games, xxx, other, books
+        /* [
+            'plugin' => 'ThePirateBay',
+            'title' => 'Top100/All',
+            'category' => 'all',
+        ],
+        [
+            'plugin' => 'ThePirateBay',
+            'title' => 'Top100/Movies',
+            'category' => 'video_hd_movies',
+        ], */
 	),
 
 
