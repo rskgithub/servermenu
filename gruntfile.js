@@ -34,25 +34,25 @@ module.exports = function (grunt) {
         },
         copy: {
             less: {
-                cwd: 'components/bootstrap/less',
+                cwd: 'vendor/components/bootstrap/less',
                 src: '**/*',
                 dest: 'less/bootstrap',
                 expand: true
             },
             js: {
-                cwd: 'components/bootstrap/js',
+                cwd: 'vendor/components/bootstrap/js',
                 src: 'bootstrap.min.js',
                 dest: 'public/js/vendor',
                 expand: true
             },
             fonts: {
-                cwd: 'components/bootstrap/fonts',
+                cwd: 'vendor/components/bootstrap/fonts',
                 src: '**/*',
                 dest: 'public/fonts',
                 expand: true
             },
             jquery: {
-                cwd: 'components/jquery',
+                cwd: 'vendor/components/jquery',
                 src: 'jquery.min.js',
                 dest: 'public/js/vendor',
                 expand: true

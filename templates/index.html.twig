@@ -1,5 +1,4 @@
 {% extends "base.html.twig" %}
-{% block title %}Menu 2.0{% endblock %}
 {% block container %}
     <div class="row row-centered" id="services">
         {% for serviceId, Service in Services %}
@@ -10,7 +9,6 @@
             </div>
         {% endfor %}
     </div>
-    <hr />
 
     <div class="row row-centered" id="searchEngines">
         <div class="col-lg-12">
@@ -37,9 +35,9 @@
         </div>
     </div>
     <div class="row row-centered" id="searchResults"></div>
-    <hr />
-    <div class="row row-centered" id="feeds">
-    <ul class="nav nav-tabs" role="tablist">
+
+    <div class="row row-centered fadedout" id="feeds">
+	    <ul class="nav nav-tabs" role="tablist">
         {% for feedId, Feed in Feeds %}
             <li>
                 <a href="#feed-{{ feedId }}" data-toggle="tab" data-id="feed-{{ feedId }}">
@@ -51,6 +49,8 @@
                 </a>
             </li>
         {% endfor %}
+        
+        <div class="fadeout"><button class="fadeout-load-more btn btn-default">Load More</button></div>
     </ul>
     <div class="tab-content">
         {% for feedId, Feed in Feeds %}
@@ -58,6 +58,15 @@
                  data-loadid="{{ feedId }}">
             </div>
         {% endfor %}
+    </div>
+    </div>
+
+    <div class="row row-centered fadedout" id="fileList" data-loadtype="FileList">
+    	<h4>Latest downloads</h4>
+    	<div class="data-load data-reload text-center col-centered"
+             data-loadtype="app" data-loadid="FileList" data-noloadanim="true" id="filelist">
+        </div>
+        <div class="fadeout"><button class="fadeout-load-more btn btn-default">Load More</button></div>
     </div>
 
     {% include '_modal.html.twig' %}

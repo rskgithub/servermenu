@@ -30,5 +30,4 @@ class PluginBase {
 		$this->config = $config;
 		$this->serviceId = $serviceId;
 	}
-
-} 
+}

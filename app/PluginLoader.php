@@ -55,6 +55,11 @@ class PluginLoader {
 		}
 
 		$config = Slim::getInstance()->config('s');
+		
+		if (!isset($config[$pluginType][$pluginId])) {
+			die('Plugin not found');
+		}
+		
 		$pluginConfig = $config[$pluginType][$pluginId];
 		$class = "\\ServerMenu\\$pluginType\\{$pluginConfig['plugin']}\\{$pluginConfig['plugin']}";
 

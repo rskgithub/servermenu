@@ -14,11 +14,8 @@
 
 ## Services
 
-- add iframe/link
-- modal dialog with iframe to services
 - documentation
 - pause, resume
-- list recent completed items
 - list current items
 - change speed limit
 

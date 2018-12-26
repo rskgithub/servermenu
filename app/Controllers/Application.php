@@ -18,6 +18,8 @@ class Application extends Controller {
 			'Services' => \ServerMenu\PluginLoader::getPlugins('Services'),
 			'SearchEngines' => \ServerMenu\PluginLoader::getPlugins('SearchEngines'),
 			'Feeds' => \ServerMenu\PluginLoader::getPlugins('Feeds'),
+			'FileList' => \ServerMenu\FileList::get(),
+			'DiskSpace' => \ServerMenu\Utility::getFreeDiskSpace(),
 			'config' => $this->config
 		);
 
@@ -27,10 +29,15 @@ class Application extends Controller {
 	public function getLogin() {
 		if (md5($this->app->getCookie('login')) == $this->config['app']['password']) {
 			$_SESSION['login'] = true;
+			session_write_close();
 			$this->app->redirect('/');
 		}
-
-		$this->app->render('login.html.twig');
+		
+		$template_variables = [
+			'config' => $this->config
+		];
+		
+		$this->app->render('login.html.twig', $template_variables);
 	}
 
 	public function getLogout() {

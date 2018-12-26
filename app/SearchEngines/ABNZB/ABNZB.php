@@ -1,24 +1,24 @@
 <?php
 
 
-namespace ServerMenu\SearchEngines\OZNZB;
+namespace ServerMenu\SearchEngines\ABNZB;
 
 
 use ServerMenu\SearchEngine;
 use ServerMenu\Utility;
 use ServerMenu\Receiver;
 
-class OZNZB extends SearchEngine
+class ABNZB extends SearchEngine
 {
 
 	use Receiver;
 
-	const OZNZB_URL = 'https://api.oznzb.com/api';
+	const NEWZNAB_API_URL = 'https://abnzb.com/api';
 
-        public function receiveContent($receiverType, $content)
-        {
-                return $this->getTemplateData($content);
-        }
+	public function receiveContent($receiverType, $content)
+	{
+		return $this->getTemplateData($content);
+	}
 
 	/**
 	 * Return array with search results and Service senders.
@@ -31,14 +31,12 @@ class OZNZB extends SearchEngine
 	public function getTemplateData($searchQuery, $amount = self::DEFAULT_AMOUNT, $beginAt = 0)
 	{
 
-		$url = self::OZNZB_URL
+		$url = self::NEWZNAB_API_URL
 			. '?apikey=' . $this->config['api_key']
 			. '&t=search&q=' . urlencode($searchQuery)
 			. '&o=json';
 
 		$data = json_decode(Utility::cacheGet($url));
-		
-echo '<pre>';		print_r($url); die();
 
 		$items = $data->channel->item;
 
@@ -48,15 +46,14 @@ echo '<pre>';		print_r($url); die();
 			$attrs = [];
 			foreach ($item->attr as $attr) {
 				if (in_array($attr->{"@attributes"}->name,
-					['size', 'oz_spam_confirmed', 'oz_passworded_confirmed', 'oz_up_votes', 'oz_down_votes'])) {
+						['size', 'oz_spam_confirmed', 'oz_passworded_confirmed', 'oz_up_votes', 'oz_down_votes'])) {
 					$attrs[$attr->{"@attributes"}->name] = $attr->{"@attributes"}->value;
 				}
 			}
 
 			$results[] = array(
 				"title" => $item->title,
-				"subtitle" => $item->category . ' - Spam/Passwd: ' . $attrs['oz_spam_confirmed'] . '/' . $attrs['oz_passworded_confirmed'] .
-					' - Up/Downvotes: ' . $attrs['oz_up_votes'] . '/' . $attrs['oz_down_votes'],
+				"subtitle" => $item->category,
 				"size" => Utility::bytes2human($attrs['size'], 1, false),
 				"link" => $item->link,
 				"date" => Utility::time2relative($item->pubDate),

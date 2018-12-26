@@ -16,9 +16,10 @@ class Sabnzbd extends \ServerMenu\Service
 	use Receiver;
 
 	private $status, // Integer containing current status code
-		$remaining, // Number of items left in queue
-		$eta, // Time left until completion
-		$speed; // Current transfer speed
+	$remaining, // Number of items left in queue
+	$eta, // Time left until completion
+	$speed, // Current transfer speed
+	$percentage = 0; // Percentage done
 
 	protected function getRequiredConfig()
 	{
@@ -30,36 +31,68 @@ class Sabnzbd extends \ServerMenu\Service
 		return array('nzb');
 	}
 
+	protected function getApiUrl($mode = 'queue')
+	{
+		$apiUrl = "{$this->config['url']}/api?mode={$mode}&output=json&apikey={$this->config['api_key']}";
+
+		return $apiUrl;
+	}
+
 	public function fetchData()
 	{
-		$apiUrl = "{$this->config['url']}/api?mode=qstatus&output=json&apikey={$this->config['api_key']}";
-
-		$document = file_get_contents($apiUrl);
-		if (!$document) {
+		$docQueue = file_get_contents($this->getApiUrl());
+		if (!$docQueue) {
 			$this->status = Service::STATUS_OFFLINE;
 			return;
 		}
 
-		$data = json_decode($document);
+
+		$data = json_decode($docQueue);
+
 		if (json_last_error() != JSON_ERROR_NONE) {
 			$this->status = Service::STATUS_OFFLINE;
 			return;
 		}
+
+		$data = $data->queue;
+		//echo '<pre>'; print_r($data);
 
 		$this->status = Service::STATUS_IDLE;
 		$this->speed = '0.0';
 		$this->eta = '0:00:00';
 		$this->remaining = '0';
 
-		if (isset($data->jobs) && (count($data->jobs) > 0)) {
-			$this->remaining = count($data->jobs);
+		if (isset($data->slots) && (count($data->slots) > 0)) {
+			$this->remaining = count($data->slots);
 			$this->eta = $data->timeleft;
 			$this->speed = $data->kbpersec;
 			$this->status = Service::STATUS_DOWNLOADING;
+			foreach ($data->slots as $slot) {
+				$percentages[] = $slot->percentage;
+			}
+
+			if (!empty($percentages)) {
+				$this->percentage = round(array_sum($percentages) / count($percentages),1);
+			}
 		}
 
 		if ($data->paused == true) {
 			$this->status = Service::STATUS_PAUSED;
+		}
+
+		if ($this->status == Service::STATUS_IDLE) {
+			$docHistory = file_get_contents($this->getApiUrl('history'));
+			$dataHistory = json_decode($docHistory)->history;
+			$percentages = [];
+
+			foreach ($dataHistory->slots as $slot) {
+				if (!empty($slot->status) && !in_array($slot->status, ['Completed', 'Failed'])) {
+					$this->status = Service::STATUS_PROCESSING;
+					$this->actionLine = $slot->action_line;
+					break;
+				}
+			}
+
 		}
 	}
 
@@ -78,7 +111,7 @@ class Sabnzbd extends \ServerMenu\Service
 
 		file_get_contents($apiUrl);
 	}
-	
+
 	public function getRemaining()
 	{
 		return (int)$this->remaining;
@@ -111,4 +144,21 @@ class Sabnzbd extends \ServerMenu\Service
 		return $this->config['url'];
 	}
 
+	public function getStatusString()
+	{
+		if ($this->status == Service::STATUS_PROCESSING) {
+			return $this->actionLine;
+		} else {
+			return parent::getStatusString();
+		}
+	}
+
+	public function getQueueList() {
+
+
+	}
+	public function getPercentage()
+	{
+		return $this->percentage;
+	}
 } 

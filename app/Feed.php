@@ -11,7 +11,7 @@ namespace ServerMenu;
 
 abstract class Feed extends PluginBase {
 
-    const DEFAULT_AMOUNT = 30;
+    const DEFAULT_AMOUNT = 100;
 
 	public $template = 'feed.html.twig';
 

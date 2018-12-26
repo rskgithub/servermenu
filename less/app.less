@@ -1,7 +1,7 @@
 /*
 Custom Styles go in this file, bootstrap variables in bootstrap/variables.less
 */
-@import 'bootstrap/bootstrap.less';
+@import '../vendor/components/bootstrap/less/bootstrap.less';
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -14,6 +14,9 @@ body {
   margin-top:@navbar-height !important;
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+}
+h1,h2,h3,h4,h5,h6,h7,h8,body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
 #footer {
   position: absolute;
@@ -29,6 +32,9 @@ body {
   max-width: 700px;
   padding-top: 20px;
 }
+a.navbar-brand {
+  font-weight: 900;
+}
 
 /* centered columns styles */
 .row-centered {
@@ -36,11 +42,16 @@ body {
 }
 .col-centered {
   display:inline-block;
-  float:none;
+  float:none!important;
   /* reset the text-align */
-  text-align:left;
+  text-align:left!important;
   /* inline-block space fix */
   margin-right:-4px;
+}
+
+/* column spacing */
+[class*="col-"] {
+    margin-bottom: 35px;
 }
 
 .text-center {
@@ -50,7 +61,8 @@ body {
 /* loading style */
 .load, .data-loading {
   min-height: 40px;
-  background: url(../images/load.gif) no-repeat center center;
+  background: url(../images/load2.png) no-repeat center center;
+  background-size: 30px 30px;
 }
 
 .load *, .data-loading * {
@@ -58,24 +70,24 @@ body {
 }
 
 .dropdown-item-loading {
-  background: url(../images/load-mini.gif) no-repeat center;
+  background: url(../images/load-mini2.png) no-repeat center;
 }
 
 #searchResults {
   display:none;
-  padding-top: 15px;
 }
 
-#searchResults a, #feeds a {
+#searchResults a, #feeds a, #fileList a {
   text-decoration: none;
 }
+
 
 .dropdown-header {
   cursor: default;
 }
 
 .modal-dialog {
-  width: 90%;
+  width: 90% !important;
 }
 
 .modal-dialog,
@@ -88,4 +100,55 @@ body {
   bottom: 0;
   top: 0;
   overflow-y: auto;
+}
+
+p.small {
+	font-size: 75%;
+}
+
+.progress.progress-small {
+	height: 5px;
+	width: 80%;
+	margin: 5px auto;
+}
+
+
+.container > div.row {
+	margin-bottom: 20px;
+}
+
+/* Fadeouts */
+
+.container .fadedout {
+	max-height: 500px;
+	overflow: hidden;
+	position: relative;
+}
+
+.container .fadeout {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    background-image: linear-gradient(rgba(6, 6, 6, 0) 33.61%, #060606 80.25%);
+    z-index: 1;
+}
+
+.container .nofadeout .fadeout {
+    display:none;
+}
+
+.container .fadeout button {
+	margin-top: 150px;
+}
+
+/* Badges */
+.badge.badge-720p {
+	background-color: #1e7ba5;
+}
+.badge.badge-1080p {
+	background-color: #2a9fd6;
+}
+.badge.badge-2160p {
+	background-color: #2daeea;
 }

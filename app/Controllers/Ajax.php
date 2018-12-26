@@ -10,6 +10,7 @@ namespace ServerMenu\Controllers;
 
 
 use ServerMenu\Controller;
+use ServerMenu\Utility;
 
 class Ajax extends Controller {
 
@@ -29,6 +30,27 @@ class Ajax extends Controller {
 
 		// Render Service HTML
 		$this->app->render($plugin->template, $plugin->getTemplateData($query), 200);
+	}
+
+	public function get($id)
+	{
+		if (method_exists($this, 'get'.ucfirst($id))) {
+			return $this->{'get'.ucfirst($id)}();
+		} else {
+			$this->app->notFound();
+		}
+	}
+
+	public function getFileList()
+	{
+		$data = \ServerMenu\FileList::get();
+
+		$this->app->render('filelist.html.twig', ['FileList' => $data], 200);
+	}
+
+	public function getDiskSpace()
+	{
+		echo \ServerMenu\Utility::getFreeDiskSpace() . ' free';
 	}
 
 }

@@ -1,3 +1,7 @@
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 jQuery(document).ready(function ($) {
 	var stripHtmlRegex = /(<([^>]+)>)/ig;
 	
@@ -33,14 +37,20 @@ jQuery(document).ready(function ($) {
 
     setInterval(function () {
         $(".data-reload").each(function () {
+	        if ($(this).hasClass('is-loading'))
+	          return true;
+	          
+	        $(this).addClass('is-loading');
+	        
             $(this).load("/ajax/" + $(this).data('loadtype') + "/" + $(this).data('loadid'), function (e, s, j) {
                 if (s != 'error') {
                     $(".ttip").tooltip();
                 }
                 $(this).finished();
+                $(this).removeClass('is-loading');
             });
         })
-    }, 5000);
+    }, getRandomInt(2000, 3000));
 
     // Handle receiver requests
 
@@ -130,5 +140,10 @@ jQuery(document).ready(function ($) {
     // Miscellaneous UI stuff
 
     $("a[data-id=feed-0]").tab('show'); // Load first feed tab
+    
+    // Handle fadeouts (to avoid having 1000+px long feeds)
+    $(".fadeout-load-more").click(function() {
+	    $(this).parent().parent().parent().removeClass('fadedout').addClass('nofadeout');
+    });
 
 });

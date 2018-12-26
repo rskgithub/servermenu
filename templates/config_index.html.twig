@@ -1,0 +1,116 @@
+{% extends "base.html.twig" %}
+{% block title %}Configuration{% endblock %}
+{% block container %}
+    <div class="row" id="configuration">
+        <form class="form-horizontal">
+			<fieldset>
+			
+			<!-- Form Name -->
+			<legend>General</legend>
+			
+			<!-- Password input-->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="password">Password</label>
+			  <div class="col-md-5">
+			    <input id="password" name="password" type="password" placeholder="*******" class="form-control input-md" required="">
+			  </div>
+			</div>
+			
+			<!-- Select Basic -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="theme">Theme</label>
+			  <div class="col-md-5">
+			    <select id="theme" name="theme" class="form-control">
+			    {% for title, theme in themes %}
+			    	<option value="{{ theme }}"{% if config.app.theme == theme %} selected{% endif %}>{{ title }}</option>
+			    {% endfor %}
+			    </select>
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			  <label class="col-md-4 control-label">Custom Nav Links</label>
+			  <div class="col-md-5">
+        			  
+			      {% for title, link in config.app.navigation_links %}
+			      
+			      <div class="input-group-sm input-group-btn">
+              <span class="input-group-addon">
+                <b>{{ title }}</b>: {{ link }}
+              </span>
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></span></button>
+              </div>
+            </div>
+			        
+			      {% endfor %}
+			      
+			      <hr>
+			      
+			      <div class="input-group">
+			  
+			      <input class="form-control" placeholder="Title" type="text" />
+			      <input class="form-control" placeholder="https://www.example.com" type="text" />
+			        <button type="button" class="btn btn-default">
+			          Add link
+			        </button>
+			        
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			  <label class="col-md-4 control-label">Local IP Range</label>
+			  <div class="col-md-5">
+        			  
+			      {% for title, link in config.app.navigation_links %}
+			      
+			      <div class="input-group-sm input-group-btn">
+              <span class="input-group-addon">
+                <b>{{ title }}</b>: {{ link }}
+              </span>
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></span></button>
+              </div>
+            </div>
+			        
+			      {% endfor %}
+			      
+			      <hr>
+			      
+			      <div class="input-group">
+			  
+			      <input class="form-control" placeholder="Title" type="text" />
+			      <input class="form-control" placeholder="https://www.example.com" type="text" />
+			        <button type="button" class="btn btn-default">
+			          Add link
+			        </button>
+			        
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<!-- Password input-->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="download_dir">Download Directory</label>
+			  <div class="col-md-5">
+			    <input id="download_dir" name="download_dir" type="text" placeholder="/var/incoming" class="form-control input-md" required="" value="{{ config.app.download_dir }}">
+			  </div>
+			</div>
+			
+			</fieldset>
+			
+			<fieldset>
+			
+			<!-- Form Name -->
+			<legend>Services</legend>
+			
+			<h3>Sabnzbd</h3>
+			
+			</fieldset>
+		</form>
+
+    </div>
+{% endblock %}

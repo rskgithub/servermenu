@@ -4,19 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{% block description %}A Slim Framework application with Bootstrap 3{% endblock %}">
+    <meta name="description" content="{% block description %}A modular, web-based control panel for HTPC services{% endblock %}">
     <meta name="author" content="">
+	<meta name="viewport" content="user-scalable=no,width=375px">
+
     {% block meta %}{% endblock %}
     <link rel="shortcut icon" href="/assets/ico/favicon.ico">
 
-    <title>{% block title %}Sticky Footer Navbar Template for Bootstrap{% endblock %}</title>
+    <title>&#9989; ServerMenu {% if block("title") is defined %}– {{ block('title') }}{% endif %}</title>
 
+    <link href="/css/app.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/app.css" rel="stylesheet">
     {% if config.app.theme is not empty and config.app.theme != 'default' %}
-    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/{{ config.app.theme|lower }}/bootstrap.min.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.2.0/css/{{ config.app.theme|lower }}/bootstrap.css" rel="stylesheet" />
     {% endif %}
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -60,24 +63,29 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="{{ getActiveClass('') }}"><a href="/">Home</a></li>
+	            {% if session.login %}
+                	<li class="{{ getActiveClass('') }}"><a href="/">Home</a></li>
+                	<li class="{{ getActiveClass('config') }}"><a href="/config">Settings</a></li>
 
-                {% for title, link in config.app.navigation_links %}
-                    <li>
-                        <a href="{{ link }}">{{ title }}</a>
-                    </li>
-                {% endfor %}
-
+	                {% for title, link in config.app.navigation_links %}
+	                    <li>
+	                        <a href="{{ link }}">{{ title }}</a>
+	                    </li>
+	                {% endfor %}
+				{% endif %}
 
             </ul>
-
-            <ul class="nav navbar-nav pull-right">
-                <li class="pull-right">
-                    <form>
-                    <a href="/logout" type="button" class="btn btn-default btn-sm navbar-btn"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
-                    </form>
-                </li>
-            </ul>
+			{% if session.login %}
+	            <ul class="nav navbar-nav pull-right">
+		            <li><p class="navbar-text data-load data-reload" data-loadtype="app" data-loadid="DiskSpace"></p></li>
+		            
+	                <li class="pull-right">
+	                    <form>
+	                    <a href="/logout" type="button" class="btn btn-default btn-sm navbar-btn"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+	                    </form>
+	                </li>
+	            </ul>
+            {% endif %}
         </div><!--/.nav-collapse -->
     </div>
 </div>
@@ -100,8 +108,8 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="/js/vendor/jquery.min.js"></script>
+<script src="/js/vendor/bootstrap.min.js"></script>
 <!-- Check for jQuery and Bootstrap, load them locally if they don't exist -->
 <script>if(!window.jQuery){document.write('<script src="/js/vendor/jquery.min.js"><\/script>')};</script>
 <script>if(typeof $.fn.emulateTransitionEnd != 'function'){document.write('<script src="/js/vendor/bootstrap.min.js"><\/script>')};</script>

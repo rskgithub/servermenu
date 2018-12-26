@@ -32,16 +32,16 @@ class KickassTorrents extends Feed {
 		/** @var \SimplePie_Item $item */
 		foreach ($items as $item) {
 			$i++;
-			$magnetURI = $item->get_item_tags('http://xmlns.ezrss.it/0.1/', 'magnetURI')[0]['data'];
-			$seeds = $item->get_item_tags('http://xmlns.ezrss.it/0.1/', 'seeds')[0]['data'];
-			$peers = $item->get_item_tags('http://xmlns.ezrss.it/0.1/', 'peers')[0]['data'];
+			$magnetURI = $item->get_item_tags('//kastatic.com/xmlns/0.1/', 'magnetURI')[0]['data'];
+			$seeds = $item->get_item_tags('//kastatic.com/xmlns/0.1/', 'seeds')[0]['data'];
+			$peers = $item->get_item_tags('//kastatic.com/xmlns/0.1/', 'peers')[0]['data'];
 			
 			$results[$seeds.'-'.$i] = [
 				"title"	=> $item->get_title(),
-				"subtitle" => $item->get_date() . " – Seeds: $seeds, peers: $peers",
+				"subtitle" => " - Seeds: $seeds, peers: $peers",
 				"size" => \ServerMenu\Utility::bytes2human($items[0]->get_enclosure()->length),
 				"link" => $item->get_link(),
-				"date" => $item->get_date(),
+				"date" => Utility::time2relative($item->get_date()),
 				"actions" => [
 					[
 						'pluginType' => 'Services',

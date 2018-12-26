@@ -1,22 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: simon
- * Date: 30/10/14
- * Time: 21:45
- */
-
-namespace ServerMenu\SearchEngines\KickassTorrents;
-
+namespace ServerMenu\SearchEngines\ThePirateBay;
 
 use ServerMenu\Receiver;
 use ServerMenu\SearchEngine;
 use ServerMenu\Utility;
 
-
-class KickassTorrents extends SearchEngine {
+class ThePirateBay extends SearchEngine {
 
 	use Receiver;
+
+	/**
+	 * @return array
+	 */
+	public function getReceiverTypes()
+	{
+		return array("search");
+	}
 
 	/**
 	 * Return array with search results and Service senders.
@@ -29,37 +28,36 @@ class KickassTorrents extends SearchEngine {
 	 */
 	public function getTemplateData($searchQuery, $amount = self::DEFAULT_AMOUNT, $beginAt = 0)
 	{
-		$url = "https://kat.cr";
 		$urlenc_term = urlencode($searchQuery);
-		$raw = null;
-		$context = ['http' => ['timeout' => 5]];
-		$context = stream_context_create($context);
-		$raw = file_get_contents("$url/usearch/$urlenc_term/?field=seeders&sorder=desc", false, $context);
+		$raw = Utility::cacheGet("https://thepiratebay.org/search/$urlenc_term/0/7/0");
 
 		$html = new \simple_html_dom();
-		$html->load(gzdecode($raw));
+		$html->load($raw);
 
 		$results = array();
 
-		foreach($html->find('table.data tbody tr') as $row) {
-			$title = $row->find("td",0);
-			$size = $row->find("td",1);
-			if (!isset($size))
+		foreach($html->find('table#searchResult tbody tr') as $row) {
+			$details = $row->find("td",1);
+			if (!isset($details))
 				continue;
-			
-			$date = html_entity_decode($row->find("td",3)->plaintext);
+
+			if (!empty($details->children[0]->children[0]->attr['title']))
+				$text = trim($details->plaintext);
+			preg_match('/(?\'title\'.*)\sUploaded(?\'date\'.*),\sSize(?\'size\'.*),\sULed\sby/', $text, $matches);
+
+			$title = str_replace('.', ' ', $matches['title']);
 
 			$results[] = array(
-				'title' => $title->find("a[class=cellMainLink]", -1)->plaintext,
-				'link' => $url . $title->find("a", 0)->attr['href'],
-				'subtitle' => " – S: {$row->find("td",4)->plaintext} L: {$row->find("td",5)->plaintext}",
-				'size' => $size->innertext,
-				'date' => $date,
+				'title' => $title,
+				'link' => $details->children[1]->attr['href'],
+				'subtitle' => "S: {$row->find("td",2)->plaintext} L: {$row->find("td",3)->plaintext}",
+				'size' => html_entity_decode($matches['size']),
+				'date' => html_entity_decode($matches['date']),
 				'actions' => array(
 					array(
 						'pluginType' => 'Services',
 						'receiverType' => 'magnet',
-						'content' => $title->find("a", 3)->attr['href'],
+						'content' => $details->children[1]->attr['href'],
 						'glyphicon' => 'download',
 						'title' => 'Download'
 					)

@@ -1,15 +1,27 @@
-<table class="table table-striped table-media table-condensed">
+<table class="table table-striped table-media table-condensed" >
 <tbody>
 {% for result in results %}
 <tr>
-    <td style="text-align: left">
+    <td style="text-align: left; word-wrap:break-all;">
+        <span class="text-muted small">
+        {% if not result.date is empty %}
+        {{ result.date|trim }}
+        {% endif %} 
+        {% if not result.size is empty %}
+        {{ result.size|trim }}
+        {% endif %} 
+        {% if not result.subtitle is empty %}
+        {{ result.subtitle|trim }}
+        {% endif %}
+        	
+        </span> <br />
         <a href="{{ result.link }}">
-            {{ result.title|striptags('<b>')|raw }}
-            <span class="text-muted">{{ result.subtitle }}</span>
+            {{ title(result.title)|striptags('<b>')|raw }}
         </a>
+
     </td>
 
-    <td style="text-align:right; min-width:85px;">
+    <td style="text-align:right; min-width:85px; vertical-align: middle">
         {% if result.actions is not empty %}
             <div class="dropdown">
                 <button class="btn btn-default btn-xs dropdown-toggle sender"  type="button" data-toggle="dropdown">

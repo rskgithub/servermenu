@@ -21,31 +21,33 @@ class EZTV extends Feed {
          */
         public function getTemplateData($amount = self::DEFAULT_AMOUNT)
         {
-                $pie = Utility::get_simplepie("http://ezrss.it/feed");
+                $pie = Utility::get_simplepie("https://eztv.ag/ezrss.xml");
 
                 $items = $pie->get_items(0, $amount);
                 $results = array();
                 foreach ($items as $item) {
                         $title = trim($item->get_title());
+
                         preg_match("/(.*)(\[.*\])/", $title, $preg_title);
                         if (isset($preg_title[1])) {
                                 $title = $preg_title[1];
                                 $subtitle = $preg_title[2];
 
                         }
-                        $magnet = $item->get_item_tags("http://xmlns.ezrss.it/0.1/","torrent")[0]["child"]["http://xmlns.ezrss.it/0.1/"]["magnetURI"][0]["data"];
+                                                
+                        $content = $item->get_enclosure()->link;
 
                         $results[] = array(
                                 "title" => $title,
                                 "subtitle" => (isset($subtitle) ? $subtitle : ''),
                                 "size" => false,
                                 "link" => $item->get_link(),
-                                "date" => false,
+                                "date" => Utility::time2relative($item->get_date()),
                                 "actions" => array(
                                         array(
                                                 "pluginType" => "Services",
                                                 "receiverType" => 'magnet',
-                                                "content" => $magnet,
+                                                "content" => $content,
                                                 "glyphicon" => "download",
                                                 "title" => "Download"
                                         ),

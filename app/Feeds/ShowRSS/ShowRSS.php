@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: simon
- * Date: 26/10/14
- * Time: 08:29
- */
-
 namespace ServerMenu\Feeds\ShowRSS;
-
 
 use ServerMenu\Feed;
 use ServerMenu\Utility;
@@ -33,16 +25,13 @@ class ShowRSS extends Feed {
 	                }
 
                         $magnet = $item->get_link();
-	                $subtitle = $item->get_date();
-
-	                $title = preg_replace('/([0-9]+p)/', '<b class=hd>${1}</b>', $title);
 
                         $results[] = array(
                                 "title" => $title,
-                                "subtitle" => (isset($subtitle) ? $subtitle : ''),
+                                "subtitle" => '',
                                 "size" => false,
                                 "link" => $item->get_link(),
-                                "date" => false,
+                                "date" => Utility::time2relative($item->get_date()),
                                 "actions" => array(
                                         array(
                                                 "pluginType" => "Services",
