@@ -11,41 +11,54 @@ namespace ServerMenu\Services\Sabnzbd;
 use ServerMenu\Receiver;
 use ServerMenu\Service;
 
-class Sabnzbd extends \ServerMenu\Service
+class Sabnzbd extends Service
 {
 	use Receiver;
 
 	private $status, // Integer containing current status code
-	$remaining, // Number of items left in queue
-	$eta, // Time left until completion
-	$speed, // Current transfer speed
-	$percentage = 0; // Percentage done
+		$remaining, // Number of items left in queue
+		$eta, // Time left until completion
+		$speed, // Current transfer speed
+		$percentage = 0; // Percentage done
 
+	/**
+	 * @return array
+	 */
 	protected function getRequiredConfig()
 	{
 		return array('plugin', 'title', 'url', 'api_key', 'public_address');
 	}
 
+	/**
+	 * @return array
+	 */
 	protected function getReceiverTypes()
 	{
 		return array('nzb');
 	}
 
-	protected function getApiUrl($mode = 'queue')
+	/**
+	 * @param string $mode
+	 * @return string
+	 */
+	private function getApiUrl($mode = 'queue')
 	{
 		$apiUrl = "{$this->config['url']}/api?mode={$mode}&output=json&apikey={$this->config['api_key']}";
 
 		return $apiUrl;
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function fetchData()
 	{
 		$docQueue = file_get_contents($this->getApiUrl());
+
 		if (!$docQueue) {
 			$this->status = Service::STATUS_OFFLINE;
 			return;
 		}
-
 
 		$data = json_decode($docQueue);
 
@@ -72,7 +85,7 @@ class Sabnzbd extends \ServerMenu\Service
 			}
 
 			if (!empty($percentages)) {
-				$this->percentage = round(array_sum($percentages) / count($percentages),1);
+				$this->percentage = round(array_sum($percentages) / count($percentages), 1);
 			}
 		}
 
@@ -112,16 +125,25 @@ class Sabnzbd extends \ServerMenu\Service
 		file_get_contents($apiUrl);
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getRemaining()
 	{
 		return (int)$this->remaining;
 	}
 
+	/**
+	 * @return float|int
+	 */
 	public function getSpeed()
 	{
 		return (int)$this->speed * 1024; //kbytes to bytes
 	}
 
+	/**
+	 * @return float|int
+	 */
 	public function getEta()
 	{
 		sscanf($this->eta, "%d:%d:%d", $hours, $minutes, $seconds);
@@ -129,21 +151,33 @@ class Sabnzbd extends \ServerMenu\Service
 		return time() + $time_seconds;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getStatusCode()
 	{
 		return $this->status;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getWanLink()
 	{
 		return $this->config['public_address'];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getLanLink()
 	{
 		return $this->config['url'];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getStatusString()
 	{
 		if ($this->status == Service::STATUS_PROCESSING) {
@@ -153,10 +187,17 @@ class Sabnzbd extends \ServerMenu\Service
 		}
 	}
 
-	public function getQueueList() {
-
+	/**
+	 * @return string|void
+	 */
+	public function getQueueList()
+	{
 
 	}
+
+	/**
+	 * @return int
+	 */
 	public function getPercentage()
 	{
 		return $this->percentage;

@@ -98,6 +98,14 @@ abstract class Service extends PluginBase
 	}
 
 	/**
+	 * @return array
+	 */
+	public function getConfig() : array
+	{
+		return $this->config;
+	}
+
+	/**
 	 * Check and assign config and serviceId to Service.
 	 *
 	 * @param $config
@@ -109,7 +117,7 @@ abstract class Service extends PluginBase
 	{
 		foreach ($this->getRequiredConfig() as $configVar) {
 			if (!isset($config[$configVar])) {
-				throw new \Exception("Config variable missing: $configVar");
+				throw new \Exception(sprintf('Config variable missing for service ID %s: %s', $serviceId, $configVar));
 			}
 		}
 
@@ -171,7 +179,7 @@ abstract class Service extends PluginBase
 	public final function getTemplateData()
 	{
 		return array(
-			'config'     => $this->config,
+			'config'     => $this->getConfig(),
 			'remaining'  => $this->getRemaining(),
 			'eta'        => Utility::time2relative($this->getEta()),
 			'speed'      => Utility::bytes2human($this->getSpeed(), 1),

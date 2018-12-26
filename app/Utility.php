@@ -62,16 +62,15 @@ class Utility
         
         return false;
     }
-    
-    /**
-     * Converts bytes to either kilobytes, megabytes,
-     * gigabytes or terabytes
-     *
-     * @param     $bytes
-     * @param int $precision
-     *
-     * @return string
-     */
+
+	/**
+	 * Converts bytes to either kilobytes, megabytes, gigabytes or terabytes
+	 *
+	 * @param int $bytes
+	 * @param int $precision
+	 * @param bool $perSecond
+	 * @return string
+	 */
     public static function bytes2human($bytes, $precision = 2, $perSecond = true)
     {
         $kilobyte = 1024;
@@ -79,18 +78,12 @@ class Utility
         $gigabyte = $megabyte * 1024;
         $terabyte = $gigabyte * 1024;
         
-        if (($bytes >= 0) && ($bytes < $kilobyte)) {
-            $return = $bytes . ' B';
-            
-        } elseif (($bytes >= $kilobyte) && ($bytes < $megabyte)) {
+        if (($bytes >= $kilobyte) && ($bytes < $megabyte)) {
             $return = round($bytes / $kilobyte, $precision) . ' KiB';
-            
         } elseif (($bytes >= $megabyte) && ($bytes < $gigabyte)) {
             $return = round($bytes / $megabyte, $precision) . ' MiB';
-            
         } elseif (($bytes >= $gigabyte) && ($bytes < $terabyte)) {
             $return = round($bytes / $gigabyte, $precision) . ' GiB';
-            
         } elseif ($bytes >= $terabyte) {
             $return = round($bytes / $terabyte, $precision) . ' TiB';
         } else {
@@ -119,7 +112,7 @@ class Utility
         
         $diff = time() - $timestamp;
         if ($diff == 0) {
-            return 'unknown time left';
+            return 'unknown time';
         } elseif ($diff > 0) {
             $day_diff = floor($diff / 86400);
             if ($day_diff == 0) {
@@ -155,6 +148,7 @@ class Utility
         } else {
             $diff     = abs($diff);
             $day_diff = floor($diff / 86400);
+
             if ($day_diff == 0) {
                 if ($diff < 30) {
                     return '< 30 secs';
